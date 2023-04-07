@@ -1,16 +1,42 @@
-export type DialogsPropsType = {
-    dialogsData: DialogDataType[],
-    messagesData: MessageDataType[],
+export type StoreType = {
+    _callSubscriber(state: StateType): void;
+    _state: StateType;
+    getState(): StateType;
+    addPost(): void;
+    changePostText(postText: string): void;
+    subscribe(observer: (state: StateType) => void): void;
 }
 
 export type StateType = {
-    dialogsData: DialogDataType[];
-    messagesData: MessageDataType[];
-    postsData: PostDataType[],
+    profilePage: ProfilePageType;
+    dialogsPage: DialogsPageType;
+    sidebarData: SidebarDataType;
 }
 
-export type ProfilePropsType = {
+export type SidebarDataType = {
+    friendsData: FriendsDataType[];
+}
+
+export type ProfilePageType = {
     postsData: PostDataType[],
+    newPostText: string,
+}
+
+export type FriendsDataType = {
+    id: number;
+    name: string;
+    avatar: string;
+}
+
+export type PostDataType = {
+    id: number;
+    message: string;
+    likesCount: number;
+}
+
+export type DialogsPageType = {
+    dialogsData: DialogDataType[];
+    messagesData: MessageDataType[];
 }
 
 export type DialogDataType = {
@@ -23,24 +49,6 @@ export type MessageDataType = {
     message: string;
 }
 
-export type PostDataType = {
-    id: number;
-    message: string;
-    likesCount: number;
-}
-
-export type AppPropsType = {
-    state: StateType;
-}
-
-export type PostsPropsType = {
-    postsData: PostDataType[]
-}
-
 export type DialogsItemsPropsType = {
     dialogsData: DialogDataType[]
-}
-
-export type MessagesPropsType = {
-    messagesData: MessageDataType[]
 }

@@ -1,7 +1,12 @@
 import React, { FC } from "react";
 import s from './Messages.module.css';
-import { MessagesPropsType } from "../../../../types";
+import { MessageDataType } from "../../../../types";
 import Message from "./Message/Message";
+import NewMessage from "./NewMessage/NewMessage";
+
+type MessagesPropsType = {
+    messagesData: MessageDataType[]
+}
 
 const Messages: FC<MessagesPropsType> = (props) => {
 
@@ -11,7 +16,10 @@ const Messages: FC<MessagesPropsType> = (props) => {
 
     return (
         <div className={s.messages}>
-            {messages}
+            <div className={s.messagesItems}>
+                {messages}
+            </div>
+            <NewMessage />
         </div>
     )
 }

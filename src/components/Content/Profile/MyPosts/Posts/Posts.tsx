@@ -1,7 +1,11 @@
 import React, { FC } from "react";
 import s from './Posts.module.css';
-import { PostsPropsType } from "../../../../../types";
 import Post from "./Post/Post";
+import { PostDataType } from "../../../../../types";
+
+type PostsPropsType = {
+    postsData: PostDataType[]
+}
 
 const Posts: FC<PostsPropsType> = (props) => {
 
