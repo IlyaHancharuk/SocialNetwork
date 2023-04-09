@@ -1,21 +1,19 @@
 import React, { FC } from "react";
 import s from './Dialogs.module.css';
-import { DialogDataType, MessageDataType } from "../../../types";
+import { ActionType, DialogsPageType } from "../../../types";
 import DialogsItems from "./DialogsItems/DialogsItems";
 import Messages from "./Messages/Messages";
 
 export type DialogsPropsType = {
-    state: {
-        dialogsData: DialogDataType[],
-        messagesData: MessageDataType[],
-    }
+    state: DialogsPageType
+    dispatch<T>(action: ActionType<T>): void;
 }
 
 const Dialogs: FC<DialogsPropsType> = (props) => {
     return (
         <div className={s.dialogs}>
             <DialogsItems dialogsData={props.state.dialogsData} />
-            <Messages messagesData={props.state.messagesData} />
+            <Messages state={props.state} dispatch={props.dispatch}/>
         </div>
     )
 }

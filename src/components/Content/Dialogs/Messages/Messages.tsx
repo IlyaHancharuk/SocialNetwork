@@ -1,16 +1,16 @@
 import React, { FC } from "react";
 import s from './Messages.module.css';
-import { MessageDataType } from "../../../../types";
+import { ActionType, DialogsPageType } from "../../../../types";
 import Message from "./Message/Message";
 import NewMessage from "./NewMessage/NewMessage";
 
 type MessagesPropsType = {
-    messagesData: MessageDataType[]
+    state: DialogsPageType;
+    dispatch<T>(action: ActionType<T>): void;
 }
 
 const Messages: FC<MessagesPropsType> = (props) => {
-
-    const messages: JSX.Element[] | JSX.Element = props.messagesData.map((m) => {
+    const messages: JSX.Element[] | JSX.Element = props.state.messagesData.map((m) => {
         return <Message id={m.id} message={m.message} />
     })
 
@@ -19,7 +19,7 @@ const Messages: FC<MessagesPropsType> = (props) => {
             <div className={s.messagesItems}>
                 {messages}
             </div>
-            <NewMessage />
+            <NewMessage newMessageText={props.state.newMessageText} dispatch={props.dispatch} />
         </div>
     )
 }

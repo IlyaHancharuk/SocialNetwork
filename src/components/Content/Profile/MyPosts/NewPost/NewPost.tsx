@@ -1,10 +1,11 @@
 import React, { FC } from "react";
 import s from './NewPost.module.css';
+import { ActionType } from "../../../../../types";
+import { addPostActionCreator, changeNewPostActionCreator } from "../../../../../Redux/state";
 
 type NewPostProps = {
-    addPost: () => void;
-    changePostText: ((postText: string) => void);
     newPostText: string;
+    dispatch<T>(action: ActionType<T>): void;
 }
 
 const NewPost: FC<NewPostProps> = (props) => {
@@ -12,14 +13,13 @@ const NewPost: FC<NewPostProps> = (props) => {
     const newPostElement: React.RefObject<HTMLTextAreaElement> = React.createRef();
 
     const addPost = () => {
-        props.addPost();
+        props.dispatch(addPostActionCreator());
     }
 
     const changePostText = () => {
-        debugger
         if (newPostElement.current) {
             const postMessage = newPostElement.current.value;
-            props.changePostText(postMessage);
+            props.dispatch(changeNewPostActionCreator(postMessage));
         }
     }
 
@@ -28,7 +28,8 @@ const NewPost: FC<NewPostProps> = (props) => {
             <textarea
                 ref={newPostElement}
                 value={props.newPostText}
-                onChange={changePostText} />
+                onChange={changePostText}
+            />
             <button onClick={addPost}>SEND</button>
         </div>
     )

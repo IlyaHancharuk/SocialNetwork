@@ -2,9 +2,13 @@ export type StoreType = {
     _callSubscriber(state: StateType): void;
     _state: StateType;
     getState(): StateType;
-    addPost(): void;
-    changePostText(postText: string): void;
     subscribe(observer: (state: StateType) => void): void;
+    dispatch<T>(action: ActionType<T>): void
+}
+
+export type ActionType<T> = {
+    type: string;
+    args?: T;
 }
 
 export type StateType = {
@@ -37,6 +41,7 @@ export type PostDataType = {
 export type DialogsPageType = {
     dialogsData: DialogDataType[];
     messagesData: MessageDataType[];
+    newMessageText: string;
 }
 
 export type DialogDataType = {
@@ -47,8 +52,4 @@ export type DialogDataType = {
 export type MessageDataType = {
     id: number;
     message: string;
-}
-
-export type DialogsItemsPropsType = {
-    dialogsData: DialogDataType[]
 }

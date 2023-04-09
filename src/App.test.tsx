@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
+import { ActionType } from './types';
 
 test('renders learn react link', () => {
   render(<App state={{
@@ -10,16 +11,15 @@ test('renders learn react link', () => {
     },
     dialogsPage: {
       dialogsData: [],
-      messagesData: []
+      messagesData: [],
+      newMessageText: ''
     },
     sidebarData: {
       friendsData: []
     }
-  }} addPost={function (): void {
+  }} dispatch={function <T>(action: ActionType<T>): void {
     throw new Error('Function not implemented.');
-  } } changePostText={function (postText: string): void {
-    throw new Error('Function not implemented.');
-  } }  />);
+  } } />);
   const linkElement = screen.getByText(/learn react/i);
   expect(linkElement).toBeInTheDocument();
 });

@@ -9,12 +9,11 @@ import Dialogs from './components/Content/Dialogs/Dialogs';
 import News from './components/Content/News/News';
 import Music from './components/Content/Music/Music';
 import Settings from './components/Content/Settings/Settings';
-import { StateType } from './types';
+import { ActionType, StateType } from './types';
 
 type AppPropsType = {
   state: StateType;
-  addPost: () => void;
-  changePostText: ((postText: string) => void);
+  dispatch<T>(action: ActionType<T>): void;
 }
 
 const App: FC<AppPropsType> = (props) => {
@@ -25,8 +24,8 @@ const App: FC<AppPropsType> = (props) => {
         <Sidebar state={props.state.sidebarData} />
         <main className='content-wrapper'>
           <Routes>
-            <Route element={<Profile state={props.state.profilePage} addPost={props.addPost} changePostText={props.changePostText}/>} path='/' />
-            <Route element={<Dialogs state={props.state.dialogsPage} />} path='/dialogs' />
+            <Route element={<Profile state={props.state.profilePage} dispatch={props.dispatch}/>} path='/' />
+            <Route element={<Dialogs state={props.state.dialogsPage} dispatch={props.dispatch}/>} path='/dialogs' />
             <Route element={<News />} path='/news' />
             <Route element={<Music />} path='/music' />
             <Route element={<Settings />} path='/settings' />
