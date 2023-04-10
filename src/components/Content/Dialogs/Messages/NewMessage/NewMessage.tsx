@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import s from './NewMessage.module.css';
 import { ActionType } from "../../../../../types";
-import { addMessageActionCreator, changeNewMessageActionCreator } from "../../../../../Redux/state";
+import { sendMessageActionCreator, changeNewMessageActionCreator } from "../../../../../Redux/dialogsReducer";
 
 type NewMessageProps = {
     newMessageText: string;
@@ -9,27 +9,23 @@ type NewMessageProps = {
 }
 
 const NewMessage: FC<NewMessageProps> = (props) => {
-    const newMessageElement: React.RefObject<HTMLTextAreaElement> =  React.createRef();
-
-    const addMessage = () => {
-        props.dispatch(addMessageActionCreator());
+    const sendMessage = () => {
+        props.dispatch(sendMessageActionCreator());
     }
 
-    const changeMessageText = () => {
-        if (newMessageElement.current) {
-            const message = newMessageElement.current.value;
-            props.dispatch(changeNewMessageActionCreator(message));
-        }
+    const changeMessageText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const message = e.target.value.trimStart();
+        props.dispatch(changeNewMessageActionCreator(message));
     }
 
     return (
         <div className={s.newMessage}>
             <textarea
-                ref={newMessageElement}
                 onChange={changeMessageText}
                 value={props.newMessageText}
-            />
-            <button onClick={addMessage}>SEND</button>
+                placeholder="Enter your message"
+            ></textarea>
+            <button onClick={sendMessage}>SEND</button>
         </div>
     )
 }
