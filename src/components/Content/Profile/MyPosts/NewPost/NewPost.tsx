@@ -1,32 +1,26 @@
 import React, { FC } from "react";
 import s from './NewPost.module.css';
-import { ActionType } from "../../../../../types";
-import { addPostActionCreator, changeNewPostActionCreator } from "../../../../../Redux/state";
+import { AllActionsType } from "../../../../../types";
+import { addPostAC, changeNewPostTextAC } from "../../../../../Redux/state";
 
 type NewPostProps = {
     newPostText: string;
-    dispatch<T>(action: ActionType<T>): void;
+    dispatch(action: AllActionsType): void;
 }
 
 const NewPost: FC<NewPostProps> = (props) => {
-
-    const newPostElement: React.RefObject<HTMLTextAreaElement> = React.createRef();
-
     const addPost = () => {
-        props.dispatch(addPostActionCreator());
+        props.dispatch(addPostAC());
     }
 
-    const changePostText = () => {
-        if (newPostElement.current) {
-            const postMessage = newPostElement.current.value;
-            props.dispatch(changeNewPostActionCreator(postMessage));
-        }
+    const changePostText = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
+        const postMessage = e.currentTarget.value;
+        props.dispatch(changeNewPostTextAC(postMessage));
     }
 
     return (
         <div className={s.newPost}>
             <textarea
-                ref={newPostElement}
                 value={props.newPostText}
                 onChange={changePostText}
             />

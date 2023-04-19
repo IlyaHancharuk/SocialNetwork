@@ -2,11 +2,11 @@ import React, { FC } from "react";
 import MyPosts from "./MyPosts/MyPosts";
 import s from './Profile.module.css';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import { ActionType, ProfilePageType } from "../../../types";
+import { AllActionsType, ProfilePageType } from "../../../types";
 
 type ProfilePropsType = {
     state: ProfilePageType;
-    dispatch<T>(action: ActionType<T>): void;
+    dispatch(action: AllActionsType): void;
 }
 
 const Profile: FC<ProfilePropsType> = (props) => {

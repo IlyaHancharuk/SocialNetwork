@@ -1,12 +1,12 @@
 import React, { FC } from "react";
 import s from './Messages.module.css';
-import { ActionType, DialogsPageType } from "../../../../types";
+import { AllActionsType, DialogsPageType } from "../../../../types";
 import Message from "./Message/Message";
 import NewMessage from "./NewMessage/NewMessage";
 
 type MessagesPropsType = {
     state: DialogsPageType;
-    dispatch<T>(action: ActionType<T>): void;
+    dispatch(action: AllActionsType): void;
 }
 
 const Messages: FC<MessagesPropsType> = (props) => {

@@ -2,11 +2,11 @@ import React, { FC } from "react";
 import s from './MyPosts.module.css';
 import NewPost from "./NewPost/NewPost";
 import Posts from "./Posts/Posts";
-import { ActionType, ProfilePageType } from "../../../../types";
+import { AllActionsType, ProfilePageType } from "../../../../types";
 
 export type MyPostsPropsType = {
     state: ProfilePageType;
-    dispatch<T>(action: ActionType<T>): void;
+    dispatch(action: AllActionsType): void;
 }
 
 const MyPosts: FC<MyPostsPropsType> = (props) => {

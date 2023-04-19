@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
-import { ActionType } from './types';
+import { AllActionsType } from './types';
 
 test('renders learn react link', () => {
   render(<App state={{
@@ -17,7 +17,7 @@ test('renders learn react link', () => {
     sidebarData: {
       friendsData: []
     }
-  }} dispatch={function <T>(action: ActionType<T>): void {
+  }} dispatch={function(action: AllActionsType): void {
     throw new Error('Function not implemented.');
   } } />);
   const linkElement = screen.getByText(/learn react/i);

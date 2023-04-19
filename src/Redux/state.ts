@@ -8,10 +8,41 @@ const CHANGE_POST_TEXT = 'CHANGE-POST-TEXT';
 const ADD_MESSAGE = 'ADD-MESSAGE';
 const CHANGE_MESSAGE_TEXT = 'CHANGE-MESSAGE-TEXT';
 
-export const addPostActionCreator = () => ({type: ADD_POST});
-export const changeNewPostActionCreator = (text: string) => ({type: CHANGE_POST_TEXT, args: text});
-export const addMessageActionCreator = () => ({type: ADD_MESSAGE});
-export const changeNewMessageActionCreator = (text: string) => ({type: CHANGE_MESSAGE_TEXT, args: text});
+
+
+export type AddPostACType = ReturnType<typeof addPostAC>;
+export const addPostAC = () => {
+    return {
+        type: ADD_POST,
+    } as const
+};
+
+export type ChangeNewPostTextACType = ReturnType<typeof changeNewPostTextAC>;
+export const changeNewPostTextAC = (text: string) => {
+    return {
+        type: CHANGE_POST_TEXT,
+        payload: {
+            text
+        }
+    } as const
+};
+
+export type SendMessageACType = ReturnType<typeof sendMessageAC>;
+export const sendMessageAC = () => {
+    return {
+        type: ADD_MESSAGE
+    } as const
+};
+
+export type ChangeNewMessageTextACType = ReturnType<typeof changeNewMessageTextAC>;
+export const changeNewMessageTextAC = (text: string) => {
+    return {
+        type: CHANGE_MESSAGE_TEXT,
+        pauload: {
+            text
+        }
+    } as const
+};
 
 
 const store: StoreType = {
@@ -75,11 +106,10 @@ const store: StoreType = {
                 break;
 
             case CHANGE_POST_TEXT:
-                if (typeof action.args === 'string') {
-                    this._state.profilePage.newPostText = action.args;
-                };
+                this._state.profilePage.newPostText = action.payload.text;
                 this._callSubscriber(this._state);
                 break;
+
             case ADD_MESSAGE:
                 const newMessage: MessageDataType = {
                     id: this._state.dialogsPage.messagesData.length + 1,
@@ -89,10 +119,9 @@ const store: StoreType = {
                 this._state.dialogsPage.newMessageText = '';
                 this._callSubscriber(this._state);
                 break;
+
             case CHANGE_MESSAGE_TEXT:
-                if (typeof action.args === 'string') {
-                    this._state.dialogsPage.newMessageText = action.args;
-                };
+                this._state.dialogsPage.newMessageText = action.pauload.text;
                 this._callSubscriber(this._state);
                 break;
         }

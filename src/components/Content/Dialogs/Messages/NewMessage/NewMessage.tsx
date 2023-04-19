@@ -1,31 +1,26 @@
 import React, { FC } from "react";
 import s from './NewMessage.module.css';
-import { ActionType } from "../../../../../types";
-import { addMessageActionCreator, changeNewMessageActionCreator } from "../../../../../Redux/state";
+import { AllActionsType } from "../../../../../types";
+import { changeNewMessageTextAC, sendMessageAC } from "../../../../../Redux/state";
 
 type NewMessageProps = {
     newMessageText: string;
-    dispatch<T>(action: ActionType<T>): void;
+    dispatch(action: AllActionsType): void;
 }
 
 const NewMessage: FC<NewMessageProps> = (props) => {
-    const newMessageElement: React.RefObject<HTMLTextAreaElement> =  React.createRef();
-
     const addMessage = () => {
-        props.dispatch(addMessageActionCreator());
+        props.dispatch(sendMessageAC());
     }
 
-    const changeMessageText = () => {
-        if (newMessageElement.current) {
-            const message = newMessageElement.current.value;
-            props.dispatch(changeNewMessageActionCreator(message));
-        }
+    const changeMessageText = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
+        const message = e.currentTarget.value;
+        props.dispatch(changeNewMessageTextAC(message));
     }
 
     return (
         <div className={s.newMessage}>
             <textarea
-                ref={newMessageElement}
                 onChange={changeMessageText}
                 value={props.newMessageText}
             />

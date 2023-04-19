@@ -1,15 +1,19 @@
+import { AddPostACType, ChangeNewPostTextACType, SendMessageACType, ChangeNewMessageTextACType } from "./Redux/state";
+
 export type StoreType = {
     _callSubscriber(state: StateType): void;
     _state: StateType;
     getState(): StateType;
     subscribe(observer: (state: StateType) => void): void;
-    dispatch<T>(action: ActionType<T>): void
+    dispatch(action: AllActionsType): void
 }
 
-export type ActionType<T> = {
-    type: string;
-    args?: T;
-}
+export type AllActionsType =
+    AddPostACType |
+    ChangeNewPostTextACType |
+    SendMessageACType |
+    ChangeNewMessageTextACType
+;
 
 export type StateType = {
     profilePage: ProfilePageType;
