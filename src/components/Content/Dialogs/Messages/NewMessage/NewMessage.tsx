@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import s from './NewMessage.module.css';
 import { AllActionsType } from "../../../../../types";
-import { changeNewMessageTextAC, sendMessageAC } from "../../../../../Redux/state";
+import { changeNewMessageTextAC, sendMessageAC } from "../../../../../Redux/redusers/dialogsReducer";
 
 type NewMessageProps = {
     newMessageText: string;

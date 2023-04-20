@@ -11,7 +11,7 @@ const Friends: FC<FriendsPropsType> = (props) => {
 
     const friends = props.friendsData.map((f) => {
         return (
-            <Friend id={f.id} name={f.name} avatar={f.avatar} />
+            <Friend id={f.id} key={f.id} name={f.name} avatar={f.avatar} />
         )
     })
 

@@ -11,7 +11,7 @@ type MessagesPropsType = {
 
 const Messages: FC<MessagesPropsType> = (props) => {
     const messages: JSX.Element[] | JSX.Element = props.state.messagesData.map((m) => {
-        return <Message id={m.id} message={m.message} />
+        return <Message id={m.id} key={m.id} message={m.message} />
     })
 
     return (

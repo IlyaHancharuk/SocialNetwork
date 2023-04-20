@@ -1,18 +1,21 @@
-import { AddPostACType, ChangeNewPostTextACType, SendMessageACType, ChangeNewMessageTextACType } from "./Redux/state";
+import { ChangeNewMessageTextACType, SendMessageACType } from "./Redux/redusers/dialogsReducer";
+import { AddPostACType, ChangeNewPostTextACType } from "./Redux/redusers/profileReduser";
+import { AddFriendACType } from "./Redux/redusers/sidebarReducer";
 
 export type StoreType = {
-    _callSubscriber(state: StateType): void;
+    _callSubscriber(): void;
     _state: StateType;
     getState(): StateType;
-    subscribe(observer: (state: StateType) => void): void;
+    subscribe(observer: () => void): void;
     dispatch(action: AllActionsType): void
 }
 
 export type AllActionsType =
-    AddPostACType |
-    ChangeNewPostTextACType |
-    SendMessageACType |
-    ChangeNewMessageTextACType
+    AddPostACType
+    | ChangeNewPostTextACType
+    | SendMessageACType
+    | ChangeNewMessageTextACType
+    | AddFriendACType
 ;
 
 export type StateType = {
@@ -43,17 +46,17 @@ export type PostDataType = {
 }
 
 export type DialogsPageType = {
-    dialogsData: DialogDataType[];
-    messagesData: MessageDataType[];
+    dialogsData: DialogsDataType[];
+    messagesData: MessagesDataType[];
     newMessageText: string;
 }
 
-export type DialogDataType = {
+export type DialogsDataType = {
     id: number;
     name: string;
 }
 
-export type MessageDataType = {
+export type MessagesDataType = {
     id: number;
     message: string;
 }

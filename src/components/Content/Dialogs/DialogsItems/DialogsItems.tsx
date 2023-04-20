@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import s from './DialogsItems.module.css';
-import { DialogDataType } from "../../../../types";
+import { DialogsDataType } from "../../../../types";
 import Dialog from "./Dialog/Dialog";
 
 export type DialogsItemsPropsType = {
-    dialogsData: DialogDataType[],
+    dialogsData: DialogsDataType[],
 }
 
 const DialogsItems: FC<DialogsItemsPropsType> = (props) => {

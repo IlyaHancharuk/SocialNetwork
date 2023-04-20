@@ -10,7 +10,7 @@ type PostsPropsType = {
 const Posts: FC<PostsPropsType> = (props) => {
 
     const posts: JSX.Element[] | JSX.Element = props.postsData.map((p) => {
-        return <Post id={p.id} message={p.message} likesCount={p.likesCount} />
+        return <Post id={p.id} key={p.id} message={p.message} likesCount={p.likesCount} />
     })
 
     return (

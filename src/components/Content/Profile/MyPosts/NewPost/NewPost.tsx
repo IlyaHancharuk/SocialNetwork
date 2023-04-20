@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import s from './NewPost.module.css';
 import { AllActionsType } from "../../../../../types";
-import { addPostAC, changeNewPostTextAC } from "../../../../../Redux/state";
+import { addPostAC, changeNewPostTextAC } from "../../../../../Redux/redusers/profileReduser";
 
 type NewPostProps = {
     newPostText: string;

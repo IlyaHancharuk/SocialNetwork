@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import s from './Post.module.css';
 import { PostDataType } from "../../../../../../types";
-import { myAvatar } from "../../../../../../Redux/state";
+import { myAvatar } from "../../../../../../Redux/store";
 
 const Post: FC<PostDataType> = (props) => {
     return (
