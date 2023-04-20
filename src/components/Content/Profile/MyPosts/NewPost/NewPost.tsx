@@ -23,7 +23,8 @@ const NewPost: FC<NewPostProps> = (props) => {
             <textarea
                 value={props.newPostText}
                 onChange={changePostText}
-            />
+                placeholder="Enter post message"
+            ></textarea>
             <button onClick={addPost}>SEND</button>
         </div>
     )

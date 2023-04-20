@@ -23,8 +23,9 @@ const NewMessage: FC<NewMessageProps> = (props) => {
             <textarea
                 onChange={changeMessageText}
                 value={props.newMessageText}
-            />
-            <button onClick={addMessage}>SEND</button>
+                placeholder="Enter your message"
+            ></textarea>
+            <button onClick={sendMessage}>SEND</button>
         </div>
     )
 }
