@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import s from './Profile.module.css';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import { ReduxStoreType } from "../../../types";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import { ReduxStoreType } from "../../../Redux/redux-store";
 
 type ProfilePropsType = {
     store: ReduxStoreType;

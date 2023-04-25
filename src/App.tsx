@@ -8,8 +8,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import News from './components/Content/News/News';
 import Music from './components/Content/Music/Music';
 import Settings from './components/Content/Settings/Settings';
-import { ReduxStoreType } from './types';
 import DialogsContainer from './components/Content/Dialogs/DialogsContainer';
+import { ReduxStoreType } from './Redux/redux-store';
 
 type AppPropsType = {
   store: ReduxStoreType;
@@ -24,7 +24,7 @@ const App: FC<AppPropsType> = (props) => {
         <main className='content-wrapper'>
           <Routes>
             <Route element={<Profile store={props.store}/>} path='/' />
-            <Route element={<DialogsContainer store={props.store} />} path='/dialogs/*' />
+            <Route element={<DialogsContainer />} path='/dialogs/*' />
             <Route element={<News />} path='/news' />
             <Route element={<Music />} path='/music' />
             <Route element={<Settings />} path='/settings' />

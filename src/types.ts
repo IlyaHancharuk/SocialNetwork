@@ -1,4 +1,3 @@
-import { EmptyObject, Store } from "redux";
 import { ChangeNewMessageTextACType, SendMessageACType } from "./Redux/redusers/dialogsReducer";
 import { AddPostACType, ChangeNewPostTextACType } from "./Redux/redusers/profileReduser";
 import { AddFriendACType } from "./Redux/redusers/sidebarReducer";
@@ -10,12 +9,6 @@ export type StoreType = {
     subscribe(observer: () => void): void;
     dispatch(action: AllActionsType): void
 }
-
-export type ReduxStoreType = Store<EmptyObject & {
-    profilePage: ProfilePageType;
-    dialogsPage: DialogsPageType;
-    sidebarData: SidebarDataType;
-}, AllActionsType>
 
 export type AllActionsType =
     AddPostACType

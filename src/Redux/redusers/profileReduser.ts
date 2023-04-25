@@ -18,13 +18,12 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Al
                 message: state.newPostText,
                 likesCount: 0,
             }
-            state.postsData.push(newPost);
-            state.newPostText = '';
-            return state;
+            const updatedPostData = [...state.postsData, newPost];
+            return {...state, postsData: updatedPostData, newPostText: ''};
         }
         case "CHANGE-POST-TEXT": {
-            state.newPostText = action.payload.text;
-            return state;
+            const newPostText = action.payload.text;
+            return {...state, newPostText};
         }
         default: {
             return state;
