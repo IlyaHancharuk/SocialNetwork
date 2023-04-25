@@ -4,7 +4,7 @@ import NewMessage from './NewMessage';
 const meta: Meta<typeof NewMessage> = {
     title: 'NewMessage',
     component: NewMessage,
-    argTypes: { dispatch: { action: 'some action dispatch' } },
+    argTypes: { sendMessage: { action: 'send message' }, changeMessageText: { action: 'change message text' } },
 };
 
 export default meta;

@@ -1,6 +1,16 @@
 import { AllActionsType, PostDataType, ProfilePageType } from "../../types";
 
-export const profileReducer = (state: ProfilePageType, action: AllActionsType): ProfilePageType => {
+const initialState: ProfilePageType = {
+    postsData: [
+        { id: 1, message: 'It\'s my first post', likesCount: 23 },
+        { id: 2, message: 'Hey, i\'m lern React', likesCount: 20 },
+        { id: 3, message: 'Hey, i\'m lern', likesCount: 9 },
+        { id: 4, message: 'Hey,', likesCount: 15 },
+    ],
+    newPostText: '',
+};
+
+export const profileReducer = (state: ProfilePageType = initialState, action: AllActionsType): ProfilePageType => {
     switch (action.type) {
         case "ADD-POST": {
             const newPost: PostDataType = {

@@ -4,7 +4,7 @@ import NewPost from './NewPost';
 const meta: Meta<typeof NewPost> = {
     title: 'NewPost',
     component: NewPost,
-    argTypes: { dispatch: { action: 'some action dispatch' } },
+    argTypes: { addPost: { action: 'add post' }, changePostText: { actoin: 'change post text'}, },
 };
 
 export default meta;

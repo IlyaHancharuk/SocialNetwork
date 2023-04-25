@@ -1,21 +1,20 @@
 import React, { FC } from "react";
 import s from './NewMessage.module.css';
-import { AllActionsType } from "../../../../../types";
-import { changeNewMessageTextAC, sendMessageAC } from "../../../../../Redux/redusers/dialogsReducer";
 
 type NewMessageProps = {
     newMessageText: string;
-    dispatch(action: AllActionsType): void;
+    sendMessage(): void;
+    changeMessageText(text: string): void;
 }
 
 const NewMessage: FC<NewMessageProps> = (props) => {
-    const addMessage = () => {
-        props.dispatch(sendMessageAC());
+    const sendMessage = () => {
+        props.sendMessage();
     }
 
     const changeMessageText = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
         const message = e.currentTarget.value;
-        props.dispatch(changeNewMessageTextAC(message));
+        props.changeMessageText(message);
     }
 
     return (

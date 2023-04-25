@@ -9,7 +9,7 @@ export type DialogsItemsPropsType = {
 
 const DialogsItems: FC<DialogsItemsPropsType> = (props) => {
     const dialogsItems: JSX.Element[] | JSX.Element = props.dialogsData.map((d) => {
-        return <Dialog id={d.id} name={d.name} />
+        return <Dialog key={d.id} id={d.id} name={d.name} />
     })
 
     return (

@@ -1,12 +1,11 @@
 import React, { FC } from "react";
-import MyPosts from "./MyPosts/MyPosts";
 import s from './Profile.module.css';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import { AllActionsType, ProfilePageType } from "../../../types";
+import { ReduxStoreType } from "../../../types";
+import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 type ProfilePropsType = {
-    state: ProfilePageType;
-    dispatch(action: AllActionsType): void;
+    store: ReduxStoreType;
 }
 
 const Profile: FC<ProfilePropsType> = (props) => {
@@ -16,7 +15,7 @@ const Profile: FC<ProfilePropsType> = (props) => {
                 <img src="https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569__480.jpg" alt="content__logo" />
             </div>
             <ProfileInfo />
-            <MyPosts state={props.state} dispatch={props.dispatch} />
+            <MyPostsContainer store={props.store} />
         </div>  
     )
 }

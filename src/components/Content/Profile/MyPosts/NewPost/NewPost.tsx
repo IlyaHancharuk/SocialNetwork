@@ -1,21 +1,19 @@
 import React, { FC } from "react";
 import s from './NewPost.module.css';
-import { AllActionsType } from "../../../../../types";
-import { addPostAC, changeNewPostTextAC } from "../../../../../Redux/redusers/profileReduser";
 
 type NewPostProps = {
     newPostText: string;
-    dispatch(action: AllActionsType): void;
+    addPost(): void;
+    changePostText(test: string): void;
 }
 
 const NewPost: FC<NewPostProps> = (props) => {
     const addPost = () => {
-        props.dispatch(addPostAC());
+        props.addPost();
     }
-
     const changePostText = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
         const postMessage = e.currentTarget.value;
-        props.dispatch(changeNewPostTextAC(postMessage));
+        props.changePostText(postMessage);
     }
 
     return (

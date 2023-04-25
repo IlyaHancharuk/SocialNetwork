@@ -1,25 +1,10 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
-import { AllActionsType } from './types';
+import store from './Redux/redux-store';
 
 test('renders learn react link', () => {
-  render(<App state={{
-    profilePage: {
-      postsData: [],
-      newPostText: ''
-    },
-    dialogsPage: {
-      dialogsData: [],
-      messagesData: [],
-      newMessageText: ''
-    },
-    sidebarData: {
-      friendsData: []
-    }
-  }} dispatch={function(action: AllActionsType): void {
-    throw new Error('Function not implemented.');
-  } } />);
+  render(<App store={store} />);
   const linkElement = screen.getByText(/learn react/i);
   expect(linkElement).toBeInTheDocument();
 });
