@@ -1,12 +1,7 @@
 import { AllActionsType, UserType, UsersPageType } from "../../types";
 
 const initialState: UsersPageType = {
-    usersData: [
-        { id: 1, followed: false, fullName: 'Ilya', status: 'I am a programmer', location: { city: 'Minsk', country: 'Belarus' } },
-        { id: 2, followed: true, fullName: 'Igor', status: 'I am a programmer', location: { city: 'Brest', country: 'Belarus' } },
-        { id: 3, followed: true, fullName: 'Anton', status: 'I am a programmer', location: { city: 'Batumi', country: 'Georgia' } },
-        { id: 4, followed: false, fullName: 'Dasha', status: 'I am a programmer', location: { city: 'Lviv', country: 'Ukraine' } },
-    ],
+    usersData: [],
 };
 
 export const usersReducer = (state = initialState, action: AllActionsType): UsersPageType => {

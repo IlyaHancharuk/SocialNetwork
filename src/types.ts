@@ -70,12 +70,13 @@ export type UsersPageType = {
 }
 
 export type UserType = {
-    id: number;
-    followed: boolean;
-    fullName: string;
-    status: string;
-    location: {
-        city: string;
-        country: string;
-    };
+    name: string,
+    id: number,
+    uniqueUrlName: string | null,
+    photos: {
+        small: string | null,
+        large: string | null
+    },
+    status: string | null,
+    followed: boolean
 }

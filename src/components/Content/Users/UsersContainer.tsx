@@ -1,9 +1,9 @@
 import { AppStateType } from "../../../Redux/redux-store";
 import { connect } from "react-redux";
 import Users from "./Users";
-import { UsersPageType } from "../../../types";
+import { UserType, UsersPageType } from "../../../types";
 import { Dispatch } from "redux";
-import { followAC, unfollowAC } from "../../../Redux/redusers/usersReducer";
+import { followAC, setUsersAC, unfollowAC } from "../../../Redux/redusers/usersReducer";
 
 type MapStatePropsType = {
     usersPage: UsersPageType;
@@ -11,6 +11,7 @@ type MapStatePropsType = {
 type MapDispatchPropsType = {
     follow(id: number): void;
     unfollow(id: number): void;
+    setUsers(users: UserType[]): void;
 }
 
 export type UsersPropsType = MapStatePropsType & MapDispatchPropsType;
@@ -28,6 +29,9 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
         unfollow(id: number) {
             dispatch(unfollowAC(id))
         },
+        setUsers(users: UserType[]) {
+            dispatch(setUsersAC(users))
+        }
     }
 }
 
