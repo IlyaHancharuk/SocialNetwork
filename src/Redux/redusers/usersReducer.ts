@@ -1,4 +1,4 @@
-import { AllActionsType, UsersPageType } from "../../types";
+import { AllActionsType, UserType, UsersPageType } from "../../types";
 
 const initialState: UsersPageType = {
     usersData: [
@@ -11,6 +11,9 @@ const initialState: UsersPageType = {
 
 export const usersReducer = (state = initialState, action: AllActionsType): UsersPageType => {
     switch (action.type) {
+        case "SET-USERS": {
+            return {...state, usersData: action.payload.users};
+        }
         case "FOLLOW": {
             const updatedUsers = state.usersData.map(user => {
                 if (user.id === action.payload.id) {
@@ -33,6 +36,16 @@ export const usersReducer = (state = initialState, action: AllActionsType): User
             return state;
         }
     }
+}
+
+export type SetUsersACType = ReturnType<typeof setUsersAC>;
+export const setUsersAC = (users: UserType[]) => {
+    return {
+        type: 'SET-USERS',
+        payload: {
+            users
+        }
+    } as const
 }
 
 export type FollowACType = ReturnType<typeof followAC>;

@@ -1,7 +1,7 @@
 import { ChangeNewMessageTextACType, SendMessageACType } from "./Redux/redusers/dialogsReducer";
 import { AddPostACType, ChangeNewPostTextACType } from "./Redux/redusers/profileReduser";
 import { AddFriendACType } from "./Redux/redusers/sidebarReducer";
-import { FollowACType, UnfollowACType } from "./Redux/redusers/usersReducer";
+import { FollowACType, SetUsersACType, UnfollowACType } from "./Redux/redusers/usersReducer";
 
 export type StoreType = {
     _callSubscriber(): void;
@@ -19,6 +19,7 @@ export type AllActionsType =
     | AddFriendACType
     | FollowACType
     | UnfollowACType
+    | SetUsersACType
 ;
 
 export type StateType = {
