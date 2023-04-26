@@ -12,7 +12,7 @@ const initialState: UsersPageType = {
 export const usersReducer = (state = initialState, action: AllActionsType): UsersPageType => {
     switch (action.type) {
         case "SET-USERS": {
-            return {...state, usersData: action.payload.users};
+            return {...state, usersData: [...state.usersData, ...action.payload.users]};
         }
         case "FOLLOW": {
             const updatedUsers = state.usersData.map(user => {
