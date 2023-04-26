@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import Friends from "./Friends/Friends";
-import Navbar from "./Navbar/Navbar";
 import s from'./Sidebar.module.css';
 import { SidebarDataType } from "../../types";
 

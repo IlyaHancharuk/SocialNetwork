@@ -10,7 +10,6 @@ import Music from './components/Content/Music/Music';
 import Settings from './components/Content/Settings/Settings';
 import DialogsContainer from './components/Content/Dialogs/DialogsContainer';
 import { ReduxStoreType } from './Redux/redux-store';
-import Users from './components/Content/Users/Users';
 import UsersContainer from './components/Content/Users/UsersContainer';
 
 type AppPropsType = {
