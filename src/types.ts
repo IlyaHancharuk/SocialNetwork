@@ -60,3 +60,17 @@ export type MessagesDataType = {
     id: number;
     message: string;
 }
+
+export type UsersPageType = {
+    usersData: UserType[]
+}
+
+export type UserType = {
+    id: number;
+    fullName: string;
+    status: string;
+    location: {
+        city: string;
+        country: string;
+    };
+}

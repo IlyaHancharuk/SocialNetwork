@@ -1,34 +1,10 @@
-import React from "react";
+//import React from "react";
 import { DialogsPageType } from "../../../types";
 import Dialogs from "./Dialogs";
 import { changeNewMessageTextAC, sendMessageAC } from "../../../Redux/redusers/dialogsReducer";
 import { connect } from "react-redux";
 import { AppStateType } from "../../../Redux/redux-store";
 import { Dispatch } from "redux";
-
-// export type DialogsContainerPropsType = {
-//     store: ReduxStoreType;
-// }
-
-// const DialogsContainer: FC<DialogsContainerPropsType> = ({ store }) => {
-//     const state = store.getState().dialogsPage;
-
-//     const sendMessage = () => {
-//         store.dispatch(sendMessageAC());
-//     }
-
-//     const changeMessageText = (message: string) => {
-//         store.dispatch(changeNewMessageTextAC(message));
-//     }
-
-//     return (
-//         <Dialogs
-//             state={state}
-//             sendMessage={sendMessage}
-//             changeMessageText={changeMessageText}
-//         />
-//     )
-// }
 
 type MapStatePropsType = {
     dialogsPage: DialogsPageType

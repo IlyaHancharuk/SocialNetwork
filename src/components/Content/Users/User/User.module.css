@@ -1,0 +1,41 @@
+.user {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 20px;
+    grid-row-gap: 15px;
+    padding: 5px;
+    border: 3px solid goldenrod;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.followBtn {
+    grid-area: 2 / 1 / 3 / 2;
+    margin: auto;
+}
+
+.userInfo {
+    grid-area: 1 / 2 / 3 / 6;
+}
+
+.userAvatar {
+    margin: 0 auto;
+    grid-area: 1 / 1 / 2 / 2;
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: 25px;
+}
+
+.userAvatar img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}

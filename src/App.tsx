@@ -10,6 +10,8 @@ import Music from './components/Content/Music/Music';
 import Settings from './components/Content/Settings/Settings';
 import DialogsContainer from './components/Content/Dialogs/DialogsContainer';
 import { ReduxStoreType } from './Redux/redux-store';
+import Users from './components/Content/Users/Users';
+import UsersContainer from './components/Content/Users/UsersContainer';
 
 type AppPropsType = {
   store: ReduxStoreType;
@@ -25,6 +27,7 @@ const App: FC<AppPropsType> = (props) => {
           <Routes>
             <Route element={<Profile store={props.store}/>} path='/' />
             <Route element={<DialogsContainer />} path='/dialogs/*' />
+            <Route element={<UsersContainer />} path='/users' />
             <Route element={<News />} path='/news' />
             <Route element={<Music />} path='/music' />
             <Route element={<Settings />} path='/settings' />

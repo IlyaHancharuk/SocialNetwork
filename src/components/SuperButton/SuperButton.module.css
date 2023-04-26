@@ -1,0 +1,43 @@
+.default {
+    min-width: 80px;
+    background-color: cadetblue;
+    padding: 5px 10px;
+    border: 2px solid purple;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    transition: 0.3ms all;
+    -webkit-transition: 0.3ms all;
+    -moz-transition: 0.3ms all;
+    -ms-transition: 0.3ms all;
+    -o-transition: 0.3ms all;
+}
+
+.default:hover {
+    cursor: pointer;
+    border: 2px solid blue;
+}
+
+.default:active {
+    background-color: rgb(58, 97, 99);
+}
+
+.default:disabled {
+    background-color: gray;
+    border: 2px solid gray;
+}
+
+.default:disabled:hover {
+    cursor: auto;
+    border: 2px solid gray;
+}
+
+.red {
+    background: red;
+}
+
+.red:active {
+    background-color: rgb(136, 5, 5);
+}

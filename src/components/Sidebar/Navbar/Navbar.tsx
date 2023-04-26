@@ -3,23 +3,30 @@ import { NavLink } from "react-router-dom";
 import s from './Navbar.module.css';
 
 const Navbar = () => {
+    const navLinkClassName = ({ isActive, isPending }: { isActive: boolean; isPending: boolean; } ) => {
+        return isPending ? `${s.pending}` : isActive ? `${s.active}` : "";
+    }
+
     return (
         <nav className={s.navbar}>
             <ul className={s.menu}>
                 <li className={s.item}>
-                    <NavLink to="/" className={ ({ isActive, isPending }) => isPending ? `${s.pending}` : isActive ? `${s.active}` : "" } >Profile</NavLink>
+                    <NavLink to="/" className={ navLinkClassName } >Profile</NavLink>
                 </li>
                 <li className={s.item}>
-                    <NavLink to="/dialogs" className={ ({ isActive, isPending }) => isPending ? `${s.pending}` : isActive ? `${s.active}` : "" } >Messages</NavLink>
+                    <NavLink to="/dialogs" className={ navLinkClassName } >Messages</NavLink>
                 </li>
                 <li className={s.item}>
-                    <NavLink to="/news" className={ ({ isActive, isPending }) => isPending ? `${s.pending}` : isActive ? `${s.active}` : "" } >News</NavLink>
+                    <NavLink to="/users" className={ navLinkClassName } >Users</NavLink>
                 </li>
                 <li className={s.item}>
-                    <NavLink to="/music" className={ ({ isActive, isPending }) => isPending ? `${s.pending}` : isActive ? `${s.active}` : "" } >Music</NavLink>
+                    <NavLink to="/news" className={ navLinkClassName } >News</NavLink>
                 </li>
                 <li className={s.item}>
-                    <NavLink to="/settings" className={ ({ isActive, isPending }) => isPending ? `${s.pending}` : isActive ? `${s.active}` : "" } >Settings</NavLink>
+                    <NavLink to="/music" className={ navLinkClassName } >Music</NavLink>
+                </li>
+                <li className={s.item}>
+                    <NavLink to="/settings" className={ navLinkClassName } >Settings</NavLink>
                 </li>
             </ul>
         </nav>

@@ -1,15 +1,8 @@
 import React, { FC } from "react";
 import s from './Dialogs.module.css';
-import { DialogsPageType } from "../../../types";
 import DialogsItems from "./DialogsItems/DialogsItems";
 import Messages from "./Messages/Messages";
 import { DialogsPropsType } from "./DialogsContainer";
-
-// export type DialogsPropsType = {
-//     state: DialogsPageType;
-//     sendMessage(): void;
-//     changeMessageText(text: string): void;
-// }
 
 const Dialogs: FC<DialogsPropsType> = (props) => {
     return (
