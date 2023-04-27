@@ -2,8 +2,8 @@ import { AllActionsType, UserType, UsersPageType } from "../../types";
 
 const initialState: UsersPageType = {
     usersData: [],
-    pageSize: 5,
-    currPage: 3999,
+    pageSize: 10,
+    currPage: 1,
     totalCount: 0
 };
 

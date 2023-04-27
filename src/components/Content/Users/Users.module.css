@@ -3,9 +3,16 @@
     flex-direction: column;
     gap: 20px;
 }
+
+.pagination {
+    overflow-y: scroll;
+    height: 88px;
+}
+
 .pagination span{
     cursor: pointer;
 }
+
 .selectedPage {
     font-weight: bold;
 }
