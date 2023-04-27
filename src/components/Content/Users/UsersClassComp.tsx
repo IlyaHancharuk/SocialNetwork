@@ -8,18 +8,40 @@ import { UserType } from "../../../types";
 
 
 class UsersClC extends React.Component<UsersPropsType> {
+    usersPage: number
+
     constructor(props: UsersPropsType) {
         super(props);
-        axios.get('https://social-network.samuraijs.com/api/1.0/users')
-            .then((response) => {
-                const users: UserType[] = response.data.items;
-                this.props.setUsers(users);
-            })
+        console.log('component create')
+        this.usersPage = 1;
     }
 
     onClickCallback = () => {
         console.log('show more users')
+        ++this.usersPage;
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.usersPage}`)
+                .then((response) => {
+                    const users: UserType[] = response.data.items;
+                    this.props.setUsers(users);
+                })
     }
+    componentDidMount(): void {
+        if (this.props.usersPage.usersData.length === 0) {
+            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.usersPage}`)
+                .then((response) => {
+                    const users: UserType[] = response.data.items;
+                    this.props.setUsers(users);
+                });
+        }
+    }
+    componentDidUpdate(prevProps: Readonly<UsersPropsType>, prevState: Readonly<{}>, snapshot?: any): void {
+        console.log('component did updated')
+    }
+    componentWillUnmount(): void {
+        console.log('component will unmount')
+        this.props.sliceFirstTenUsers();
+    }
+
 
     render() {
         return (

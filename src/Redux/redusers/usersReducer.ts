@@ -9,6 +9,9 @@ export const usersReducer = (state = initialState, action: AllActionsType): User
         case "SET-USERS": {
             return {...state, usersData: [...state.usersData, ...action.payload.users]};
         }
+        case "SLICE-10-USERS": {
+            return {...state, usersData: state.usersData.slice(0, 10)};
+        }
         case "FOLLOW": {
             const updatedUsers = state.usersData.map(user => {
                 if (user.id === action.payload.id) {
@@ -40,6 +43,13 @@ export const setUsersAC = (users: UserType[]) => {
         payload: {
             users
         }
+    } as const
+}
+
+export type SliceFirstTenUsersACType = ReturnType<typeof sliceFirstTenUsersAC>;
+export const sliceFirstTenUsersAC = () => {
+    return {
+        type: 'SLICE-10-USERS',
     } as const
 }
 
