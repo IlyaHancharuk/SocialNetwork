@@ -9,8 +9,8 @@ const Users: FC<UsersPropsType> = (props) => {
 
     useEffect(() => {
         const fetchUsers = async () => {
-            const users = await getUsers();
-            props.setUsers(users);
+            const {users, totalCount} = await getUsers();
+            props.setUsers(users, totalCount);
         }
         if (props.usersPage.usersData.length === 0) {
             fetchUsers()

@@ -8,29 +8,41 @@ import { UserType } from "../../../types";
 
 
 class UsersClC extends React.Component<UsersPropsType> {
-    usersPage: number
+    //usersPage: number;
 
     constructor(props: UsersPropsType) {
         super(props);
         console.log('component create')
-        this.usersPage = 1;
+        //this.usersPage = 1;
     }
 
     onClickCallback = () => {
         console.log('show more users')
-        ++this.usersPage;
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.usersPage}`)
+        // ++this.usersPage;
+        // axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.usersPage}`)
+        //         .then((response) => {
+        //             const users: UserType[] = response.data.items;
+        //             this.props.setUsers(users);
+        //         })
+    }
+
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
                 .then((response) => {
                     const users: UserType[] = response.data.items;
-                    this.props.setUsers(users);
-                })
+                    const totalCount: number = Number(response.data.totalCount);
+                    this.props.setUsers(users, totalCount);
+                });
     }
+
     componentDidMount(): void {
         if (this.props.usersPage.usersData.length === 0) {
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.usersPage}`)
+            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currPage}&count=${this.props.pageSize}`)
                 .then((response) => {
                     const users: UserType[] = response.data.items;
-                    this.props.setUsers(users);
+                    const totalCount: number = Number(response.data.totalCount);
+                    this.props.setUsers(users, totalCount);
                 });
         }
     }
@@ -39,25 +51,47 @@ class UsersClC extends React.Component<UsersPropsType> {
     }
     componentWillUnmount(): void {
         console.log('component will unmount')
-        this.props.sliceFirstTenUsers();
+        //this.props.sliceFirstTenUsers();
     }
 
 
     render() {
+
+        const pagesCount = Math.ceil(this.props.totalCount / this.props.pageSize);
+        const pages = [];
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i)
+        }
+
         return (
-            <div className={s.users}>
-                {this.props.usersPage.usersData.map(user => {
-                    return (
-                        <User key={user.id}
-                              userInfo={user}
-                              follow={this.props.follow}
-                              unfollow={this.props.unfollow}
-                        />
-                    )
-                })}
-                <SuperButton children={'Show more'}
-                             onClick={this.onClickCallback}
-                />
+            <div>
+                <div className={s.pagination}>
+                    {"<"}
+                    {pages.map(p => {
+                        return <span key={`page-btn-${p}`}
+                                     id={`page-btn-${p}`}
+                                     className={p === this.props.currPage ? s.selectedPage : ''}
+                                     onClick={() => {this.onPageChanged(p)}}
+                                >
+                                    {` ${p} `}
+                                </span>
+                    })}
+                    {">"}
+                </div>
+                <div className={s.users}>
+                    {this.props.usersPage.usersData.map(user => {
+                        return (
+                            <User key={user.id}
+                                userInfo={user}
+                                follow={this.props.follow}
+                                unfollow={this.props.unfollow}
+                            />
+                        )
+                    })}
+                    <SuperButton children={'Show more'}
+                                onClick={this.onClickCallback}
+                    />
+                </div>
             </div>
         )
     }

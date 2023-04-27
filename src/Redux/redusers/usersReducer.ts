@@ -2,12 +2,18 @@ import { AllActionsType, UserType, UsersPageType } from "../../types";
 
 const initialState: UsersPageType = {
     usersData: [],
+    pageSize: 5,
+    currPage: 3999,
+    totalCount: 0
 };
 
 export const usersReducer = (state = initialState, action: AllActionsType): UsersPageType => {
     switch (action.type) {
         case "SET-USERS": {
-            return {...state, usersData: [...state.usersData, ...action.payload.users]};
+            return {...state, usersData: [...action.payload.users], totalCount: action.payload.totalCount};
+        }
+        case "SET-CURR-PAGE": {
+            return {...state, currPage: action.payload.page}
         }
         case "SLICE-10-USERS": {
             return {...state, usersData: state.usersData.slice(0, 10)};
@@ -37,11 +43,22 @@ export const usersReducer = (state = initialState, action: AllActionsType): User
 }
 
 export type SetUsersACType = ReturnType<typeof setUsersAC>;
-export const setUsersAC = (users: UserType[]) => {
+export const setUsersAC = (users: UserType[], totalCount: number) => {
     return {
         type: 'SET-USERS',
         payload: {
-            users
+            users,
+            totalCount
+        }
+    } as const
+}
+
+export type SetCurrentPageACType = ReturnType<typeof setCurrentPageAC>;
+export const setCurrentPageAC = (page: number) => {
+    return {
+        type: 'SET-CURR-PAGE',
+        payload: {
+            page
         }
     } as const
 }
