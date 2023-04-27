@@ -12,7 +12,7 @@ const UsersFC: FC<UsersPropsType> = (props) => {
             const {users, totalCount} = await getUsers();
             props.setUsers(users, totalCount);
         }
-        if (props.usersPage.usersData.length === 0) {
+        if (props.usersPage.users.length === 0) {
             fetchUsers()
         }
     })
@@ -21,7 +21,7 @@ const UsersFC: FC<UsersPropsType> = (props) => {
         console.log('show more users')
     }
 
-    const users: JSX.Element[] | JSX.Element = props.usersPage.usersData.map(user => {
+    const users: JSX.Element[] | JSX.Element = props.usersPage.users.map(user => {
         return (
             <User key={user.id}
                   userInfo={user}

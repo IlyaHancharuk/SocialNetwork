@@ -1,7 +1,7 @@
 import { ChangeNewMessageTextACType, SendMessageACType } from "./Redux/redusers/dialogsReducer";
 import { AddPostACType, ChangeNewPostTextACType } from "./Redux/redusers/profileReduser";
 import { AddFriendACType } from "./Redux/redusers/sidebarReducer";
-import { FollowACType, SetCurrentPageACType, SetUsersACType, SliceFirstTenUsersACType, UnfollowACType } from "./Redux/redusers/usersReducer";
+import { FollowACType, SetCurrentPageACType, SetFetchingACType, SetUsersACType, SliceFirstTenUsersACType, UnfollowACType } from "./Redux/redusers/usersReducer";
 
 export type StoreType = {
     _callSubscriber(): void;
@@ -22,6 +22,7 @@ export type AllActionsType =
     | SetUsersACType
     | SliceFirstTenUsersACType
     | SetCurrentPageACType
+    | SetFetchingACType
 ;
 
 export type StateType = {
@@ -68,10 +69,11 @@ export type MessagesDataType = {
 }
 
 export type UsersPageType = {
-    usersData: UserType[];
+    users: UserType[];
     pageSize: number;
     currPage: number;
     totalCount: number;
+    isFetching: boolean;
 }
 
 export type UserType = {

@@ -23,7 +23,7 @@ const Users: FC<UsersPropsType & AddType> = (props) => {
                     {` ${p} `}
                 </span>
     })
-    const users: JSX.Element[] | JSX.Element = props.usersPage.usersData.map(user => {
+    const users: JSX.Element[] | JSX.Element = props.usersPage.users.map(user => {
         return (
             <User key={user.id}
                   userInfo={user}

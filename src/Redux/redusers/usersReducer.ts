@@ -1,40 +1,44 @@
 import { AllActionsType, UserType, UsersPageType } from "../../types";
 
 const initialState: UsersPageType = {
-    usersData: [],
+    users: [],
     pageSize: 10,
     currPage: 1,
-    totalCount: 0
+    totalCount: 0,
+    isFetching: false
 };
 
 export const usersReducer = (state = initialState, action: AllActionsType): UsersPageType => {
     switch (action.type) {
         case "SET-USERS": {
-            return {...state, usersData: [...action.payload.users], totalCount: action.payload.totalCount};
+            return {...state, users: [...action.payload.users], totalCount: action.payload.totalCount};
         }
         case "SET-CURR-PAGE": {
             return {...state, currPage: action.payload.page}
         }
+        case "SET-FETCHING": {
+            return {...state, isFetching: action.payload.isFetching}
+        }
         case "SLICE-10-USERS": {
-            return {...state, usersData: state.usersData.slice(0, 10)};
+            return {...state, users: state.users.slice(0, 10)};
         }
         case "FOLLOW": {
-            const updatedUsers = state.usersData.map(user => {
+            const updatedUsers = state.users.map(user => {
                 if (user.id === action.payload.id) {
                     user.followed = true;
                 }
                 return user;
             })
-            return {...state, usersData: updatedUsers};
+            return {...state, users: updatedUsers};
         }
         case "UNFOLLOW": {
-            const updatedUsers = state.usersData.map(user => {
+            const updatedUsers = state.users.map(user => {
                 if (user.id === action.payload.id) {
                     user.followed = false;
                 }
                 return user;
             })
-            return {...state, usersData: updatedUsers};
+            return {...state, users: updatedUsers};
         }
         default: {
             return state;
@@ -88,4 +92,14 @@ export const unfollowAC = (id: number) => {
             id
         }
     } as const;
+}
+
+export type SetFetchingACType = ReturnType<typeof setFetchingAC>;
+export const setFetchingAC = (isFetching: boolean) => {
+    return {
+        type: 'SET-FETCHING',
+        payload: {
+            isFetching
+        }
+    } as const
 }
