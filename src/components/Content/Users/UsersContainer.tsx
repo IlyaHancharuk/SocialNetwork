@@ -3,7 +3,6 @@ import axios from "axios";
 import { AppStateType } from "../../../Redux/redux-store";
 import { connect } from "react-redux";
 import { UserType, UsersPageType } from "../../../types";
-import { Dispatch } from "redux";
 import { followAC, setCurrentPageAC, setFetchingAC, setUsersAC, sliceFirstTenUsersAC, unfollowAC } from "../../../Redux/redusers/usersReducer";
 import Users from "./Users";
 import Preloader from "../../Preloader/Preloader";
@@ -90,27 +89,12 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
         isFetching: state.usersPage.isFetching
     }
 }
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
-    return {
-        follow(id) {
-            dispatch(followAC(id));
-        },
-        unfollow(id) {
-            dispatch(unfollowAC(id));
-        },
-        setUsers(users, totalCount) {
-            dispatch(setUsersAC(users, totalCount));
-        },
-        setCurrentPage(page) {
-            dispatch(setCurrentPageAC(page));
-        },
-        sliceFirstTenUsers() {
-            dispatch(sliceFirstTenUsersAC());
-        },
-        setFetching(isFetching) {
-            dispatch(setFetchingAC(isFetching));
-        },
-    }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default connect(mapStateToProps, {
+    follow: followAC,
+    unfollow: unfollowAC,
+    setUsers: setUsersAC,
+    setCurrentPage: setCurrentPageAC,
+    sliceFirstTenUsers: sliceFirstTenUsersAC,
+    setFetching: setFetchingAC,
+})(UsersContainer);
