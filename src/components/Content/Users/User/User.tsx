@@ -3,6 +3,7 @@ import s from './User.module.css';
 import { UserType } from "../../../../types";
 import SuperButton from "../../../SuperButton/SuperButton";
 import userPhoto from "./../../../../assets/images/defaultUserSmallAvatar.png"
+import { NavLink } from "react-router-dom";
 
 type UserPropsType = {
     userInfo: UserType;
@@ -24,7 +25,9 @@ const User: FC<UserPropsType> = (props) => {
     return (
         <div className={s.user} id={'user-' + props.userInfo.id.toString()}>
             <div className={s.userAvatar}>
-                <img src={props.userInfo.photos.small ? props.userInfo.photos.small : userPhoto} alt="" />
+                <NavLink to={`/profile/${props.userInfo.id}`}>
+                    <img src={props.userInfo.photos.small ? props.userInfo.photos.small : userPhoto} alt="" />
+                </NavLink>
             </div>
             <div className={s.followBtn}>
                 <SuperButton children={btnText} onClick={onClickCallback}/>

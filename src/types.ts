@@ -1,5 +1,5 @@
 import { ChangeNewMessageTextACType, SendMessageACType } from "./Redux/redusers/dialogsReducer";
-import { AddPostACType, ChangeNewPostTextACType } from "./Redux/redusers/profileReduser";
+import { AddPostACType, ChangeNewPostTextACType, SetUserProfileACType } from "./Redux/redusers/profileReduser";
 import { AddFriendACType } from "./Redux/redusers/sidebarReducer";
 import { FollowACType, SetCurrentPageACType, SetFetchingACType, SetUsersACType, SliceFirstTenUsersACType, UnfollowACType } from "./Redux/redusers/usersReducer";
 
@@ -14,15 +14,20 @@ export type StoreType = {
 export type AllActionsType =
     AddPostACType
     | ChangeNewPostTextACType
+    | SetUserProfileACType
+
     | SendMessageACType
     | ChangeNewMessageTextACType
+
     | AddFriendACType
+
     | FollowACType
     | UnfollowACType
     | SetUsersACType
     | SliceFirstTenUsersACType
     | SetCurrentPageACType
     | SetFetchingACType
+
 ;
 
 export type StateType = {
@@ -36,8 +41,9 @@ export type SidebarDataType = {
 }
 
 export type ProfilePageType = {
-    postsData: PostDataType[],
-    newPostText: string,
+    userProfile: UserProfileType | null;
+    postsData: PostDataType[];
+    newPostText: string;
 }
 
 export type FriendsDataType = {
@@ -77,13 +83,35 @@ export type UsersPageType = {
 }
 
 export type UserType = {
-    name: string,
-    id: number,
-    uniqueUrlName: string | null,
+    name: string;
+    id: number;
+    uniqueUrlName: string | null;
     photos: {
-        small: string | null,
-        large: string | null
+        small: string | null;
+        large: string | null;
     },
-    status: string | null,
-    followed: boolean
+    status: string | null;
+    followed: boolean;
+}
+
+export type UserProfileType = {
+    aboutMe: string;
+    contacts: {
+        facebook: string;
+        website: string | null;
+        vk: string;
+        twitter: string;
+        instagram: string;
+        youtube: string | null;
+        github: string;
+        mainLink: string | null;
+    };
+    lookingForAJob: boolean;
+    lookingForAJobDescription: string;
+    fullName: string;
+    userId: number;
+    photos: {
+        small: string;
+        large: string;
+    };
 }

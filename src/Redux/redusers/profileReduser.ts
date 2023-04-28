@@ -1,6 +1,7 @@
-import { AllActionsType, PostDataType, ProfilePageType } from "../../types";
+import { AllActionsType, PostDataType, ProfilePageType, UserProfileType } from "../../types";
 
 const initialState: ProfilePageType = {
+    userProfile: null,
     postsData: [
         { id: 1, message: 'It\'s my first post', likesCount: 23 },
         { id: 2, message: 'Hey, i\'m lern React', likesCount: 20 },
@@ -25,6 +26,10 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Al
             const newPostText = action.payload.text;
             return {...state, newPostText};
         }
+        case "SET-USER-PROFILE": {
+            console.log({...state, userProfile: action.payload.profile})
+            return {...state, userProfile: action.payload.profile}
+        }
         default: {
             return state;
         }
@@ -46,6 +51,16 @@ export const changeNewPostTextAC = (text: string) => {
         type: 'CHANGE-POST-TEXT',
         payload: {
             text
+        }
+    } as const
+};
+
+export type SetUserProfileACType = ReturnType<typeof setUserProfileAC>;
+export const setUserProfileAC = (profile: UserProfileType) => {
+    return {
+        type: 'SET-USER-PROFILE',
+        payload: {
+            profile
         }
     } as const
 };
