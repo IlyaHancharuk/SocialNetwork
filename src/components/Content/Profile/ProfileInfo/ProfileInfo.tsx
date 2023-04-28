@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import s from './ProfileInfo.module.css';
 import { UserProfileType } from "../../../../types";
-import { link } from "fs";
 
 type ProfileInfoPropsType = {
     userProfile: UserProfileType | null

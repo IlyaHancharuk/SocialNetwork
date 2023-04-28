@@ -27,7 +27,6 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Al
             return {...state, newPostText};
         }
         case "SET-USER-PROFILE": {
-            console.log({...state, userProfile: action.payload.profile})
             return {...state, userProfile: action.payload.profile}
         }
         default: {

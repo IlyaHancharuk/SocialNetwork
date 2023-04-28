@@ -24,7 +24,7 @@ const App: FC<AppPropsType> = (props) => {
         <Sidebar state={props.store.getState().sidebarData} />
         <main className='content-wrapper'>
           <Routes>
-            <Route element={<ProfileContainer />} path='/profile/*' />
+            <Route element={<ProfileContainer />} path='/profile/:userId' />
             <Route element={<DialogsContainer />} path='/dialogs/*' />
             <Route element={<UsersContainer />} path='/users' />
             <Route element={<News />} path='/news' />

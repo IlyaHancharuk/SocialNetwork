@@ -1,30 +1,32 @@
-import React from "react";
-import s from './Profile.module.css';
+import React, { FC, useEffect } from "react";
 import Profile from "./Profile";
 import axios from "axios";
-import { UserProfileType } from "../../../types";
 import { connect } from "react-redux";
+import { useParams } from "react-router-dom";
+import { UserProfileType } from "../../../types";
 import { AppStateType } from "../../../Redux/redux-store";
 import { setUserProfileAC } from "../../../Redux/redusers/profileReduser";
 
-let userId = 2;
 
-class ProfileContainer extends React.Component<ProfilePropsType> {
+const ProfileContainer: FC<ProfilePropsType> = (props) => {
+    const { userId } = useParams();
+    console.log('UserProfile loaded')
 
-    componentDidMount(): void {
-        axios.get(`https://social-network.samuraijs.com/api/1.0//profile/${userId}`)
+    useEffect(() => {
+        axios
+            .get(`https://social-network.samuraijs.com/api/1.0//profile/${userId}`)
             .then(res => {
                 const profile: UserProfileType = res.data;
-                this.props.setUserProfile(profile);
+                props.setUserProfile(profile);
             })
-    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userId])
 
-    render(): React.ReactNode {
-        return (
-            <Profile userProfile={this.props.userProfile}/>
-        )
-    }
+    return (
+        <Profile userProfile={props.userProfile} />
+    )
 }
+
 
 type MapStatePropsType = {
     userProfile: UserProfileType | null
