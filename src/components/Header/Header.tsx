@@ -1,15 +1,29 @@
-import React from "react";
+import React, { FC } from "react";
 import s from './Header.module.css';
-import Navbar from "../Sidebar/Navbar/Navbar";
+import SuperButton from "../SuperButton/SuperButton";
+import { HeaderPropsType } from "./HeaderContainer";
+import { NavLink } from "react-router-dom";
 
+const Header: FC<HeaderPropsType> = (props) => {
+    const authBlock: JSX.Element =
+        props.authData.id
+            ? <div>
+                <h3> Hello, {props.authData.login}!</h3>
+            </div>
+            : <NavLink to={"/login"}>
+                <SuperButton>
+                    Login
+                </SuperButton>
+            </NavLink>
 
-const Header = () => {
     return (
         <header className={s.header}>
             <div className={s.logo}>
                 <img src="https://img.icons8.com/doodle/48/null/facebook-messenger.png" alt="logo" />
             </div>
-            <Navbar />
+            <div className={s.auth}>
+                {authBlock}
+            </div>
         </header>
     )
 }

@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import './App.css';
 import Footer from './components/Footer/Footer';
-import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import News from './components/Content/News/News';
@@ -11,6 +10,7 @@ import DialogsContainer from './components/Content/Dialogs/DialogsContainer';
 import { ReduxStoreType } from './Redux/redux-store';
 import UsersContainer from './components/Content/Users/UsersContainer';
 import ProfileContainer from './components/Content/Profile/ProfileContainer';
+import HeaderContainer from './components/Header/HeaderContainer';
 
 type AppPropsType = {
   store: ReduxStoreType;
@@ -20,7 +20,7 @@ const App: FC<AppPropsType> = (props) => {
   return (
     <BrowserRouter>
       <div className="app-wrapper">
-        <Header />
+        <HeaderContainer />
         <Sidebar state={props.store.getState().sidebarData} />
         <main className='content-wrapper'>
           <Routes>

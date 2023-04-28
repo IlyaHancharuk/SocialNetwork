@@ -1,4 +1,4 @@
-import { AllActionsType, UserType, UsersPageType } from "../../types";
+import { UserType, UsersPageType } from "../../types";
 
 const initialState: UsersPageType = {
     users: [],
@@ -8,7 +8,7 @@ const initialState: UsersPageType = {
     isFetching: false
 };
 
-export const usersReducer = (state = initialState, action: AllActionsType): UsersPageType => {
+export const usersReducer = (state = initialState, action: UsersActionsType): UsersPageType => {
     switch (action.type) {
         case "SET-USERS": {
             return {...state, users: [...action.payload.users], totalCount: action.payload.totalCount};
@@ -18,9 +18,6 @@ export const usersReducer = (state = initialState, action: AllActionsType): User
         }
         case "SET-FETCHING": {
             return {...state, isFetching: action.payload.isFetching}
-        }
-        case "SLICE-10-USERS": {
-            return {...state, users: state.users.slice(0, 10)};
         }
         case "FOLLOW": {
             const updatedUsers = state.users.map(user => {
@@ -45,7 +42,13 @@ export const usersReducer = (state = initialState, action: AllActionsType): User
         }
     }
 }
-
+export type UsersActionsType = 
+    SetUsersACType
+    | SetCurrentPageACType
+    | FollowACType
+    | UnfollowACType
+    | SetFetchingACType
+;
 export type SetUsersACType = ReturnType<typeof setUsersAC>;
 export const setUsersAC = (users: UserType[], totalCount: number) => {
     return {
@@ -64,13 +67,6 @@ export const setCurrentPageAC = (page: number) => {
         payload: {
             page
         }
-    } as const
-}
-
-export type SliceFirstTenUsersACType = ReturnType<typeof sliceFirstTenUsersAC>;
-export const sliceFirstTenUsersAC = () => {
-    return {
-        type: 'SLICE-10-USERS',
     } as const
 }
 

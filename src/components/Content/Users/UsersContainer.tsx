@@ -3,7 +3,7 @@ import axios from "axios";
 import { AppStateType } from "../../../Redux/redux-store";
 import { connect } from "react-redux";
 import { UserType, UsersPageType } from "../../../types";
-import { followAC, setCurrentPageAC, setFetchingAC, setUsersAC, sliceFirstTenUsersAC, unfollowAC } from "../../../Redux/redusers/usersReducer";
+import { followAC, setCurrentPageAC, setFetchingAC, setUsersAC, unfollowAC } from "../../../Redux/redusers/usersReducer";
 import Users from "./Users";
 import Preloader from "../../Preloader/Preloader";
 
@@ -19,7 +19,6 @@ type MapDispatchPropsType = {
     unfollow(id: number): void;
     setUsers(users: UserType[], totalCount: number): void;
     setCurrentPage(page: number): void;
-    sliceFirstTenUsers(): void;
     setFetching(isFetching: boolean): void;
 }
 export type UsersPropsType = MapStatePropsType & MapDispatchPropsType;
@@ -70,7 +69,6 @@ class UsersContainer extends React.Component<UsersPropsType> {
                             unfollow={this.props.unfollow}
                             setUsers={this.props.setUsers}
                             setCurrentPage={this.props.setCurrentPage}
-                            sliceFirstTenUsers={this.props.sliceFirstTenUsers}
                             onPageChanged={this.onPageChanged} 
                             isFetching={this.props.isFetching}
                             setFetching={this.props.setFetching}
@@ -95,6 +93,5 @@ export default connect(mapStateToProps, {
     unfollow: unfollowAC,
     setUsers: setUsersAC,
     setCurrentPage: setCurrentPageAC,
-    sliceFirstTenUsers: sliceFirstTenUsersAC,
     setFetching: setFetchingAC,
 })(UsersContainer);

@@ -1,4 +1,4 @@
-import { AllActionsType, DialogsPageType, MessagesDataType } from "../../types";
+import { DialogsPageType, MessagesDataType } from "../../types";
 
 const initialState: DialogsPageType = {
     dialogsData: [
@@ -17,7 +17,7 @@ const initialState: DialogsPageType = {
     newMessageText: '',
 };
 
-export const dialogsReducer = (state: DialogsPageType = initialState, action: AllActionsType): DialogsPageType => {
+export const dialogsReducer = (state: DialogsPageType = initialState, action: DialogsActionsType): DialogsPageType => {
     switch (action.type) {
         case "SEND-MESSAGE": {
             const newMessage: MessagesDataType = {

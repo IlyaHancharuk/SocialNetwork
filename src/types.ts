@@ -1,7 +1,8 @@
-import { ChangeNewMessageTextACType, SendMessageACType } from "./Redux/redusers/dialogsReducer";
-import { AddPostACType, ChangeNewPostTextACType, SetUserProfileACType } from "./Redux/redusers/profileReduser";
-import { AddFriendACType } from "./Redux/redusers/sidebarReducer";
-import { FollowACType, SetCurrentPageACType, SetFetchingACType, SetUsersACType, SliceFirstTenUsersACType, UnfollowACType } from "./Redux/redusers/usersReducer";
+import { SetAuthDataACType } from "./Redux/redusers/authReducer";
+import { DialogsActionsType } from "./Redux/redusers/dialogsReducer";
+import { ProfileActionsType } from "./Redux/redusers/profileReduser";
+import { SidebarActionsType } from "./Redux/redusers/sidebarReducer";
+import { UsersActionsType } from "./Redux/redusers/usersReducer";
 
 export type StoreType = {
     _callSubscriber(): void;
@@ -12,22 +13,11 @@ export type StoreType = {
 }
 
 export type AllActionsType =
-    AddPostACType
-    | ChangeNewPostTextACType
-    | SetUserProfileACType
-
-    | SendMessageACType
-    | ChangeNewMessageTextACType
-
-    | AddFriendACType
-
-    | FollowACType
-    | UnfollowACType
-    | SetUsersACType
-    | SliceFirstTenUsersACType
-    | SetCurrentPageACType
-    | SetFetchingACType
-
+    ProfileActionsType
+    | DialogsActionsType
+    | SidebarActionsType
+    | UsersActionsType
+    | SetAuthDataACType
 ;
 
 export type StateType = {
@@ -114,4 +104,10 @@ export type UserProfileType = {
         small: string;
         large: string;
     };
+}
+
+export type AuthResponseType = {
+    id: number | null;
+    email: string ;
+    login: string;
 }

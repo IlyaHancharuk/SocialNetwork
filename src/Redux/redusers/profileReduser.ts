@@ -1,4 +1,4 @@
-import { AllActionsType, PostDataType, ProfilePageType, UserProfileType } from "../../types";
+import { PostDataType, ProfilePageType, UserProfileType } from "../../types";
 
 const initialState: ProfilePageType = {
     userProfile: null,
@@ -11,7 +11,7 @@ const initialState: ProfilePageType = {
     newPostText: '',
 };
 
-export const profileReducer = (state: ProfilePageType = initialState, action: AllActionsType): ProfilePageType => {
+export const profileReducer = (state: ProfilePageType = initialState, action: ProfileActionsType): ProfilePageType => {
     switch (action.type) {
         case "ADD-POST": {
             const newPost: PostDataType = {
@@ -35,8 +35,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Al
     }
 }
 
-export type ProfileActionsType = AddPostACType | ChangeNewPostTextACType;
-
+export type ProfileActionsType = AddPostACType | ChangeNewPostTextACType | SetUserProfileACType;
 export type AddPostACType = ReturnType<typeof addPostAC>;
 export const addPostAC = () => {
     return {

@@ -1,4 +1,4 @@
-import { AllActionsType, SidebarDataType } from "../../types";
+import { SidebarDataType } from "../../types";
 import userPhoto from "./../../assets/images/defaultUserSmallAvatar.png";
 
 const initialState: SidebarDataType = {
@@ -12,7 +12,7 @@ const initialState: SidebarDataType = {
     ],
 };
 
-export const sidebarReducer = (state: SidebarDataType = initialState, action: AllActionsType) => {
+export const sidebarReducer = (state: SidebarDataType = initialState, action: SidebarActionsType): SidebarDataType => {
     switch (action.type) {
         case "ADD-FRIEND": {
             return state;
@@ -22,7 +22,7 @@ export const sidebarReducer = (state: SidebarDataType = initialState, action: Al
         }
     }
 }
-
+export type SidebarActionsType = AddFriendACType;
 export type AddFriendACType = ReturnType<typeof addFriendAC>;
 export const addFriendAC = () => {
     return {
