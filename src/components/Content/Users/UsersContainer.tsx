@@ -1,11 +1,11 @@
 import React from "react";
-import axios from "axios";
 import { AppStateType } from "../../../Redux/redux-store";
 import { connect } from "react-redux";
 import { UserType, UsersPageType } from "../../../types";
 import { followAC, setCurrentPageAC, setFetchingAC, setUsersAC, unfollowAC } from "../../../Redux/redusers/usersReducer";
 import Users from "./Users";
 import Preloader from "../../Preloader/Preloader";
+import { getUsers } from "../../../APITools/APITools";
 
 type MapStatePropsType = {
     usersPage: UsersPageType;
@@ -28,32 +28,22 @@ class UsersContainer extends React.Component<UsersPropsType> {
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber);
         this.props.setFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-                .then((response) => {
-                    this.props.setFetching(false);
-                    const users: UserType[] = response.data.items;
-                    const totalCount: number = Number(response.data.totalCount);
-                    this.props.setUsers(users, totalCount);
-                });
+        getUsers(pageNumber, this.props.pageSize)
+            .then(({ users, totalCount }) => {
+                this.props.setFetching(false);
+                this.props.setUsers(users, totalCount);
+            });
     }
 
     componentDidMount(): void {
         if (this.props.usersPage.users.length === 0) {
             this.props.setFetching(true);
-            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currPage}&count=${this.props.pageSize}`)
-                .then((response) => {
+            getUsers(this.props.currPage, this.props.pageSize)
+                .then(({ users, totalCount }) => {
                     this.props.setFetching(false);
-                    const users: UserType[] = response.data.items;
-                    const totalCount: number = Number(response.data.totalCount);
                     this.props.setUsers(users, totalCount);
                 });
         }
-    }
-    componentDidUpdate(prevProps: Readonly<UsersPropsType>, prevState: Readonly<{}>, snapshot?: any): void {
-        console.log('component did updated')
-    }
-    componentWillUnmount(): void {
-        console.log('component will unmount')
     }
 
     render() {

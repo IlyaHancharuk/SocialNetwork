@@ -1,24 +1,22 @@
 import React, { FC, useEffect } from "react";
 import Profile from "./Profile";
-import axios from "axios";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { UserProfileType } from "../../../types";
 import { AppStateType } from "../../../Redux/redux-store";
 import { setUserProfileAC } from "../../../Redux/redusers/profileReduser";
+import { getProfile } from "../../../APITools/APITools";
 
 
 const ProfileContainer: FC<ProfilePropsType> = (props) => {
     const { userId } = useParams();
+    const id = userId ? +userId : 2;
     console.log('UserProfile loaded')
 
     useEffect(() => {
-        axios
-            .get(`https://social-network.samuraijs.com/api/1.0//profile/${userId}`)
-            .then(res => {
-                const profile: UserProfileType = res.data;
-                props.setUserProfile(profile);
-            })
+        getProfile(id).then(profile => {
+            props.setUserProfile(profile);
+        })
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userId])
 

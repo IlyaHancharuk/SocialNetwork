@@ -1,16 +1,20 @@
 import React, { FC } from "react";
 import s from './ProfileInfo.module.css';
 import { UserProfileType } from "../../../../types";
+import defaultUserPhoto from "./../../../../assets/images/defaultUserSmallAvatar.png";
+
 
 type ProfileInfoPropsType = {
     userProfile: UserProfileType | null
 }
 
 const ProfileInfo: FC<ProfileInfoPropsType> = ({ userProfile }) => {
+    const userPhoto = userProfile?.photos.large ? userProfile.photos.large : defaultUserPhoto;
+
     return (
         <div className={s.profileInfo}>
             <div className={s.userAvatar}>
-                <img src={userProfile?.photos.large} alt="user-avatar" />
+                <img src={userPhoto} alt="user-avatar" />
             </div>
             <div className="userMainInfo">
                 <h2>{userProfile?.fullName}</h2>

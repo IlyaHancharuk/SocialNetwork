@@ -12,7 +12,7 @@ const Users: FC<UsersPropsType & AddType> = (props) => {
     const pagesCount = Math.ceil(props.totalCount / props.pageSize);
     const pages = [];
     for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
+        pages.push(i);
     }
     const pageBtns: JSX.Element[] | JSX.Element = pages.map(p => {
         return <span key={`page-btn-${p}`}
