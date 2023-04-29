@@ -4,8 +4,7 @@ import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import { UserProfileType } from "../../../types";
 import { AppStateType } from "../../../Redux/redux-store";
-import { setUserProfileAC } from "../../../Redux/redusers/profileReduser";
-import { getProfile } from "../../../APITools/APITools";
+import { getProfileThunkCreator } from "../../../Redux/redusers/profileReduser";
 
 
 const ProfileContainer: FC<ProfilePropsType> = (props) => {
@@ -14,9 +13,7 @@ const ProfileContainer: FC<ProfilePropsType> = (props) => {
     console.log('UserProfile loaded')
 
     useEffect(() => {
-        getProfile(id).then(profile => {
-            props.setUserProfile(profile);
-        })
+       props.getProfile(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userId])
 
@@ -30,7 +27,7 @@ type MapStatePropsType = {
     userProfile: UserProfileType | null
 }
 type MapDispatchPropsType = {
-    setUserProfile(profile: UserProfileType): void
+    getProfile(userId: number): void
 }
 export type ProfilePropsType = MapStatePropsType & MapDispatchPropsType;
 
@@ -40,4 +37,4 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     }
 }
 
-export default connect(mapStateToProps, { setUserProfile: setUserProfileAC })(ProfileContainer) ;
+export default connect(mapStateToProps, { getProfile: getProfileThunkCreator })(ProfileContainer) ;

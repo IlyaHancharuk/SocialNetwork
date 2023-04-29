@@ -4,7 +4,6 @@ import { UserType } from "../../../../types";
 import SuperButton from "../../../SuperButton/SuperButton";
 import defaultUserPhoto from "./../../../../assets/images/defaultUserSmallAvatar.png"
 import { NavLink } from "react-router-dom";
-import { userAPI } from "../../../../APITools/APITools";
 
 type UserPropsType = {
     userInfo: UserType;
