@@ -3,12 +3,18 @@ import s from './Profile.module.css';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import { UserProfileType } from "../../../types";
+import { Navigate } from "react-router-dom";
 
 type ProfilePropsType = {
-    userProfile: UserProfileType | null
+    userProfile: UserProfileType | null;
+    isAuth: boolean;
 }
 
-const Profile: FC<ProfilePropsType> = ({ userProfile }) => {
+const Profile: FC<ProfilePropsType> = ({ userProfile, isAuth }) => {
+    if(!isAuth) {
+        return <Navigate to={"/login"} />
+    }
+
     return (
         <div>
             <div className={s.image}>

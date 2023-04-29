@@ -18,13 +18,14 @@ const ProfileContainer: FC<ProfilePropsType> = (props) => {
     }, [userId])
 
     return (
-        <Profile userProfile={props.userProfile} />
+        <Profile isAuth={props.isAuth} userProfile={props.userProfile} />
     )
 }
 
 
 type MapStatePropsType = {
-    userProfile: UserProfileType | null
+    userProfile: UserProfileType | null;
+    isAuth: boolean;
 }
 type MapDispatchPropsType = {
     getProfile(userId: number): void
@@ -33,7 +34,8 @@ export type ProfilePropsType = MapStatePropsType & MapDispatchPropsType;
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
-        userProfile: state.profilePage.userProfile
+        userProfile: state.profilePage.userProfile,
+        isAuth: state.auth.isAuth
     }
 }
 
