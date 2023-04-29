@@ -1,17 +1,18 @@
 import { Dispatch } from "redux";
-import { AuthResponseType } from "../../types";
-import { getAuth } from "../../APITools/APITools";
+import { AuthResponseType, AuthType } from "../../types";
+import { authAPI } from "../../APITools/APITools";
 
-const initialState: AuthResponseType = {
+const initialState: AuthType = {
     id: null,
     email: '',
-    login: ''
+    login: '',
+    isAuth: false
 };
 
-export const authReducer = (state: AuthResponseType = initialState, action: SetAuthDataACType): AuthResponseType => {
+export const authReducer = (state: AuthType = initialState, action: SetAuthDataACType): AuthType => {
     switch (action.type) {
         case "SET-AUTH-DATA": {
-            return {...state, ...action.payload.data};
+            return {...state, ...action.payload.data, isAuth: action.payload.isAuth};
         }
         default: {
             return state;
@@ -21,19 +22,20 @@ export const authReducer = (state: AuthResponseType = initialState, action: SetA
 
 export type AuthActionsType = SetAuthDataACType;
 export type SetAuthDataACType = ReturnType<typeof setAuthDataAC>;
-export const setAuthDataAC = (data: AuthResponseType) => {
+export const setAuthDataAC = (data: AuthResponseType, isAuth: boolean) => {
     return {
         type: 'SET-AUTH-DATA',
         payload: {
-            data
+            data,
+            isAuth
         }
     } as const
 };
 
 export const getAuthThunkCreator = () => {
     return (dispatch: Dispatch) => {
-        getAuth().then(data => {
-            data && dispatch(setAuthDataAC(data));
+        authAPI.me().then(data => {
+            data && dispatch(setAuthDataAC(data, true));
         })
     }
 }

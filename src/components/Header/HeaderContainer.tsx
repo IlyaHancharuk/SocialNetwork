@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from "react";
 import Header from "./Header";
-import { AuthResponseType } from "../../types";
+import { AuthType } from "../../types";
 import { AppStateType } from "../../Redux/redux-store";
 import { connect } from "react-redux";
 import { getAuthThunkCreator } from "../../Redux/redusers/authReducer";
@@ -8,7 +8,7 @@ import { getAuthThunkCreator } from "../../Redux/redusers/authReducer";
 const HeaderContainer: FC<HeaderPropsType> = (props) => {
 
     useEffect(() => {
-        if (!props.authData.id) {
+        if (!props.authData.isAuth) {
             props.getAuth()
         }
     }, [props])
@@ -19,7 +19,7 @@ const HeaderContainer: FC<HeaderPropsType> = (props) => {
 }
 
 type MapStatePropsType = {
-    authData: AuthResponseType
+    authData: AuthType
 }
 type MapDispatchPropsType = {
     getAuth(): void

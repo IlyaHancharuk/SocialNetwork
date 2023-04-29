@@ -111,3 +111,5 @@ export type AuthResponseType = {
     email: string ;
     login: string;
 }
+
+export type AuthType = AuthResponseType & {isAuth: boolean};

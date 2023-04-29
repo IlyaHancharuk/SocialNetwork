@@ -38,15 +38,16 @@ export const userAPI = {
         return data;
     }
 }
-
-export const getAuth = async () => {
-    const res = await instance
-        .get(`/auth/me`,
-        );
-    if (res.data.resultCode === 0) {
-        console.log('authentification is done');
-        const data: AuthResponseType = res.data.data;
-        return data;
+export const authAPI = {
+    async me() {
+        const res = await instance
+            .get(`/auth/me`,
+            );
+        if (res.data.resultCode === 0) {
+            console.log('authentification is done');
+            const data: AuthResponseType = res.data.data;
+            return data;
+        }
     }
 }
 
