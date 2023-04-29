@@ -51,9 +51,7 @@ const User: FC<UserPropsType> = ({userInfo, ...props}) => {
     }
 
     const userPhoto = userInfo.photos.small ? userInfo.photos.small : defaultUserPhoto;
-    console.log(userPhoto)
     const btnText = userInfo.followed ? 'unfollow' : 'follow';
-    console.log(userInfo)
     const onClickCallback = userInfo.followed ? unfollow : follow;
 
     return (
