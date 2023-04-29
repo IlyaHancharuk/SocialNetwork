@@ -1,4 +1,6 @@
+import { Dispatch } from "redux";
 import { UserType, UsersPageType } from "../../types";
+import { userAPI } from "../../APITools/APITools";
 
 const initialState: UsersPageType = {
     users: [],
@@ -42,6 +44,7 @@ export const usersReducer = (state = initialState, action: UsersActionsType): Us
         }
     }
 }
+
 export type UsersActionsType = 
     SetUsersACType
     | SetCurrentPageACType
@@ -50,6 +53,11 @@ export type UsersActionsType =
     | SetFetchingACType
 ;
 export type SetUsersACType = ReturnType<typeof setUsersAC>;
+export type SetCurrentPageACType = ReturnType<typeof setCurrentPageAC>;
+export type FollowACType = ReturnType<typeof followAC>;
+export type UnfollowACType = ReturnType<typeof unfollowAC>;
+export type SetFetchingACType = ReturnType<typeof setFetchingAC>;
+
 export const setUsersAC = (users: UserType[], totalCount: number) => {
     return {
         type: 'SET-USERS',
@@ -59,8 +67,6 @@ export const setUsersAC = (users: UserType[], totalCount: number) => {
         }
     } as const
 }
-
-export type SetCurrentPageACType = ReturnType<typeof setCurrentPageAC>;
 export const setCurrentPageAC = (page: number) => {
     return {
         type: 'SET-CURR-PAGE',
@@ -69,8 +75,6 @@ export const setCurrentPageAC = (page: number) => {
         }
     } as const
 }
-
-export type FollowACType = ReturnType<typeof followAC>;
 export const followAC = (id: number) => {
     return {
         type: 'FOLLOW',
@@ -79,8 +83,6 @@ export const followAC = (id: number) => {
         }
     } as const;
 }
-
-export type UnfollowACType = ReturnType<typeof unfollowAC>;
 export const unfollowAC = (id: number) => {
     return {
         type: 'UNFOLLOW',
@@ -89,8 +91,6 @@ export const unfollowAC = (id: number) => {
         }
     } as const;
 }
-
-export type SetFetchingACType = ReturnType<typeof setFetchingAC>;
 export const setFetchingAC = (isFetching: boolean) => {
     return {
         type: 'SET-FETCHING',
@@ -98,4 +98,47 @@ export const setFetchingAC = (isFetching: boolean) => {
             isFetching
         }
     } as const
+}
+
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(setFetchingAC(true));
+            userAPI.getUsers(currentPage, pageSize)
+                .then(({ users, totalCount }) => {
+                    dispatch(setFetchingAC(false));
+                    dispatch(setUsersAC(users, totalCount));
+                });
+    }
+}
+
+export const followUserThunkCreator = (userId: number, setLocalState: React.Dispatch<React.SetStateAction<boolean>>) => {
+    return (dispatch: Dispatch) => {
+        setLocalState(true);
+        userAPI.followUser(userId)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(followAC(userId));
+                } else {
+                    //setFollowMessage(data.messages[0]);
+                    //hideFollowMessage();
+                }
+                setLocalState(false);
+            })
+    }
+}
+
+export const unfollowUserThunkCreator = (userId: number, setLocalState: React.Dispatch<React.SetStateAction<boolean>>) => {
+    return (dispatch: Dispatch) => {
+        setLocalState(true);
+        userAPI.unfollowUser(userId)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(unfollowAC(userId));
+                } else {
+                    //setFollowMessage(data.messages[0]);
+                    //hideFollowMessage();
+                }
+                setLocalState(false);
+            })
+    }
 }

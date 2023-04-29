@@ -4,50 +4,32 @@ import { UserType } from "../../../../types";
 import SuperButton from "../../../SuperButton/SuperButton";
 import defaultUserPhoto from "./../../../../assets/images/defaultUserSmallAvatar.png"
 import { NavLink } from "react-router-dom";
-import { followUser, unfollowUser } from "../../../../APITools/APITools";
+import { userAPI } from "../../../../APITools/APITools";
 
 type UserPropsType = {
     userInfo: UserType;
-    follow(id: number): void;
-    unfollow(id: number): void;
+    // follow(id: number): void;
+    // unfollow(id: number): void;
+    isFetching: boolean;
+    followUser(userId: number, setLocalState: React.Dispatch<React.SetStateAction<boolean>>): void;
+    unfollowUser(userId: number, setLocalState: React.Dispatch<React.SetStateAction<boolean>>): void;
 }
 
 const User: FC<UserPropsType> = ({userInfo, ...props}) => {
     const [isFetching, setFetching] = useState(false);
-    const [followMessage, setFollowMessage] = useState(''); 
-    const followErrorMessage = <div className={s.followMessage}>{followMessage}</div>
-    const hideFollowMessage = () => {
-        setTimeout(() => {
-           setFollowMessage('');
-        }, 2000);
-    }
+    // const [followMessage, setFollowMessage] = useState(''); 
+    // const followErrorMessage = <div className={s.followMessage}>{followMessage}</div>
+    // const hideFollowMessage = () => {
+    //     setTimeout(() => {
+    //        setFollowMessage('');
+    //     }, 2000);
+    // }
 
     const follow = () => {
-        setFetching(true);
-        followUser(userInfo.id)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    props.follow(userInfo.id);
-                } else {
-                    setFollowMessage(data.messages[0]);
-                    hideFollowMessage();
-                }
-                setFetching(false);
-            })
+        props.followUser(userInfo.id, setFetching)
     }
-
     const unfollow = () => {
-        setFetching(true);
-        unfollowUser(userInfo.id)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    props.unfollow(userInfo.id);
-                } else {
-                    setFollowMessage(data.messages[0]);
-                    hideFollowMessage();
-                }
-                setFetching(false);
-            })
+        props.unfollowUser(userInfo.id, setFetching);
     }
 
     const userPhoto = userInfo.photos.small ? userInfo.photos.small : defaultUserPhoto;
@@ -67,7 +49,7 @@ const User: FC<UserPropsType> = ({userInfo, ...props}) => {
                              onClick={onClickCallback}
                 />
             </div>
-            {followErrorMessage}
+            {/* {followErrorMessage} */}
             <div className={s.userInfo}>
                 <div>{userInfo.name}</div>
                 <div>{userInfo.status}</div>

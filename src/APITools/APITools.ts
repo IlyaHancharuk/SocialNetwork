@@ -12,24 +12,36 @@ const instance = axios.create({
     }
 })
 
-export const getUsers = async (currentPage = 1, pageSize = 10) => {
-    const res = await instance
-        .get(`${baseURL}/users?page=${currentPage}&count=${pageSize}`,
-            {
-                withCredentials: true
-            }
+export const userAPI = {
+    async getUsers (currentPage = 1, pageSize = 10) {
+        const res = await instance
+            .get(`/users?page=${currentPage}&count=${pageSize}`,
+            )
+        const users: UserType[] = res.data.items;
+        const totalCount: number = Number(res.data.totalCount);
+        return { users, totalCount };
+    },
+
+    async followUser (userId: number) {
+        const res = await instance
+            .post(`/follow/${userId}`,
         )
-    const users: UserType[] = res.data.items;
-    const totalCount: number = Number(res.data.totalCount);
-    return { users, totalCount };
+        const data = res.data;
+        return data;
+    },
+
+    async unfollowUser (userId: number) {
+        const res = await instance
+        .delete(`/follow/${userId}`,
+        )
+        const data = res.data;
+        return data;
+    }
 }
 
 export const getAuth = async () => {
     const res = await instance
-        .get(`${baseURL}/auth/me`,
-            {
-                withCredentials: true,
-            }
+        .get(`/auth/me`,
         );
     if (res.data.resultCode === 0) {
         console.log('authentification is done');
@@ -40,36 +52,7 @@ export const getAuth = async () => {
 
 export const getProfile = async (userId: number) => {
     const res = await instance
-        .get(`${baseURL}/profile/${userId}`);
+        .get(`/profile/${userId}`);
     const profile: UserProfileType = res.data;
     return profile;
-}
-
-export const followUser = async (userId: number) => {
-    const res = await instance
-        .post(`${baseURL}/follow/${userId}`,
-        {},
-        {
-            withCredentials: true,
-            headers: {
-                'API-KEY': API_KEY
-            }
-        }
-    )
-    const data = res.data;
-    return data;
-}
-
-export const unfollowUser = async (userId: number) => {
-    const res = await instance
-        .delete(`${baseURL}/follow/${userId}`,
-        {
-            withCredentials: true,
-            headers: {
-                'API-KEY': API_KEY
-            }
-        }
-    )
-    const data = res.data;
-    return data;
 }
