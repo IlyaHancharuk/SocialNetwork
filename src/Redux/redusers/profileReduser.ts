@@ -1,6 +1,6 @@
 import { Dispatch } from "redux";
 import { PostDataType, ProfilePageType, UserProfileType } from "../../types";
-import { getProfile } from "../../APITools/APITools";
+import { userAPI } from "../../APITools/APITools";
 
 const initialState: ProfilePageType = {
     userProfile: null,
@@ -67,7 +67,7 @@ export const setUserProfileAC = (profile: UserProfileType) => {
 
 export const getProfileThunkCreator = (userId: number) => {
     return (dispatch: Dispatch) => {
-        getProfile(userId).then(profile => {
+        userAPI.getUserProfile(userId).then(profile => {
             dispatch(setUserProfileAC(profile));
         })
     }

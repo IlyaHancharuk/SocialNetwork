@@ -36,8 +36,16 @@ export const userAPI = {
         )
         const data = res.data;
         return data;
-    }
+    },
+
+    async getUserProfile(userId: number) {
+        const res = await instance
+            .get(`/profile/${userId}`);
+        const profile: UserProfileType = res.data;
+        return profile;
+    },
 }
+
 export const authAPI = {
     async me() {
         const res = await instance
@@ -48,12 +56,5 @@ export const authAPI = {
             const data: AuthResponseType = res.data.data;
             return data;
         }
-    }
-}
-
-export const getProfile = async (userId: number) => {
-    const res = await instance
-        .get(`/profile/${userId}`);
-    const profile: UserProfileType = res.data;
-    return profile;
+    },
 }
