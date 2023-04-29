@@ -48,14 +48,14 @@ export const usersReducer = (state = initialState, action: UsersActionsType): Us
 export type UsersActionsType = 
     SetUsersACType
     | SetCurrentPageACType
-    | FollowACType
-    | UnfollowACType
+    | FollowSuccessACType
+    | UnfollowSuccessACType
     | SetFetchingACType
 ;
 export type SetUsersACType = ReturnType<typeof setUsersAC>;
 export type SetCurrentPageACType = ReturnType<typeof setCurrentPageAC>;
-export type FollowACType = ReturnType<typeof followAC>;
-export type UnfollowACType = ReturnType<typeof unfollowAC>;
+export type FollowSuccessACType = ReturnType<typeof followSuccessAC>;
+export type UnfollowSuccessACType = ReturnType<typeof unfollowSuccessAC>;
 export type SetFetchingACType = ReturnType<typeof setFetchingAC>;
 
 export const setUsersAC = (users: UserType[], totalCount: number) => {
@@ -75,7 +75,7 @@ export const setCurrentPageAC = (page: number) => {
         }
     } as const
 }
-export const followAC = (id: number) => {
+export const followSuccessAC = (id: number) => {
     return {
         type: 'FOLLOW',
         payload: {
@@ -83,7 +83,7 @@ export const followAC = (id: number) => {
         }
     } as const;
 }
-export const unfollowAC = (id: number) => {
+export const unfollowSuccessAC = (id: number) => {
     return {
         type: 'UNFOLLOW',
         payload: {
@@ -117,7 +117,7 @@ export const followUserThunkCreator = (userId: number, setLocalState: React.Disp
         userAPI.followUser(userId)
             .then(data => {
                 if (data.resultCode === 0) {
-                    dispatch(followAC(userId));
+                    dispatch(followSuccessAC(userId));
                 } else {
                     //setFollowMessage(data.messages[0]);
                     //hideFollowMessage();
@@ -133,7 +133,7 @@ export const unfollowUserThunkCreator = (userId: number, setLocalState: React.Di
         userAPI.unfollowUser(userId)
             .then(data => {
                 if (data.resultCode === 0) {
-                    dispatch(unfollowAC(userId));
+                    dispatch(unfollowSuccessAC(userId));
                 } else {
                     //setFollowMessage(data.messages[0]);
                     //hideFollowMessage();

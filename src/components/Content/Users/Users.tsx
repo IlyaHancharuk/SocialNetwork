@@ -27,8 +27,6 @@ const Users: FC<UsersPropsType & AddType> = (props) => {
         return (
             <User key={user.id}
                   userInfo={user}
-                //   follow={props.follow}
-                //   unfollow={props.unfollow}
                   isFetching={props.isFetching}
                   followUser={props.followUser}
                   unfollowUser={props.unfollowUser}

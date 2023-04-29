@@ -8,8 +8,6 @@ import { userAPI } from "../../../../APITools/APITools";
 
 type UserPropsType = {
     userInfo: UserType;
-    // follow(id: number): void;
-    // unfollow(id: number): void;
     isFetching: boolean;
     followUser(userId: number, setLocalState: React.Dispatch<React.SetStateAction<boolean>>): void;
     unfollowUser(userId: number, setLocalState: React.Dispatch<React.SetStateAction<boolean>>): void;
