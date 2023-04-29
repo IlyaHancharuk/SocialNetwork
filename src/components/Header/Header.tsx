@@ -1,8 +1,12 @@
 import React, { FC } from "react";
 import s from './Header.module.css';
 import SuperButton from "../SuperButton/SuperButton";
-import { HeaderPropsType } from "./HeaderContainer";
 import { NavLink } from "react-router-dom";
+import { AuthResponseType } from "../../types";
+
+type HeaderPropsType = {
+    authData: AuthResponseType
+}
 
 const Header: FC<HeaderPropsType> = (props) => {
     const authBlock: JSX.Element =

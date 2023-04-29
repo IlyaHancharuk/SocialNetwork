@@ -1,7 +1,6 @@
+import { Dispatch } from "redux";
 import { AuthResponseType } from "../../types";
-
-
-
+import { getAuth } from "../../APITools/APITools";
 
 const initialState: AuthResponseType = {
     id: null,
@@ -30,3 +29,11 @@ export const setAuthDataAC = (data: AuthResponseType) => {
         }
     } as const
 };
+
+export const getAuthThunkCreator = () => {
+    return (dispatch: Dispatch) => {
+        getAuth().then(data => {
+            data && dispatch(setAuthDataAC(data));
+        })
+    }
+}
