@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import s from './ProfileInfo.module.css';
 import { UserProfileType } from "../../../../types";
 import defaultUserPhoto from "./../../../../assets/images/defaultUserSmallAvatar.png";
+import ProfileStatus from "./ProfileStatus/ProfileIStatus";
 
 
 type ProfileInfoPropsType = {
@@ -19,6 +20,7 @@ const ProfileInfo: FC<ProfileInfoPropsType> = ({ userProfile }) => {
             <div className="userMainInfo">
                 <h2>{userProfile?.fullName}</h2>
                 <h3>{userProfile?.aboutMe}</h3>
+                <ProfileStatus />
                 <ul>
                     {userProfile?.contacts.mainLink && <li>MainLink: <a href={userProfile?.contacts.mainLink}>{userProfile?.contacts.mainLink}</a></li>}
                     {userProfile?.contacts.facebook && <li>Facebook: <a href={userProfile?.contacts.facebook}>{userProfile?.contacts.facebook}</a></li>}
