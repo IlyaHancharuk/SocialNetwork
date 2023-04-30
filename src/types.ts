@@ -4,14 +4,6 @@ import { ProfileActionsType } from "./Redux/redusers/profileReduser";
 import { SidebarActionsType } from "./Redux/redusers/sidebarReducer";
 import { UsersActionsType } from "./Redux/redusers/usersReducer";
 
-export type StoreType = {
-    _callSubscriber(): void;
-    _state: StateType;
-    getState(): StateType;
-    subscribe(observer: () => void): void;
-    dispatch(action: AllActionsType): void
-}
-
 export type AllActionsType =
     ProfileActionsType
     | DialogsActionsType
@@ -19,12 +11,6 @@ export type AllActionsType =
     | UsersActionsType
     | SetAuthDataACType
 ;
-
-export type StateType = {
-    profilePage: ProfilePageType;
-    dialogsPage: DialogsPageType;
-    sidebarData: SidebarDataType;
-}
 
 export type SidebarDataType = {
     friendsData: FriendsDataType[];
