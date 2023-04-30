@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { ComponentType, FC, useEffect } from "react";
 import Profile from "./Profile";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -6,6 +6,7 @@ import { UserProfileType } from "../../../types";
 import { AppStateType } from "../../../Redux/redux-store";
 import { getProfileThunkCreator } from "../../../Redux/redusers/profileReduser";
 import { withAuthRedirect } from "../../../HOC/withAuthRedirect";
+import { compose } from "redux";
 
 type MapStatePropsType = {
     userProfile: UserProfileType | null;
@@ -36,4 +37,7 @@ const ProfileContainer: FC<ProfilePropsType> = (props) => {
     )
 }
 
-export default withAuthRedirect(connect(mapStateToProps, { getProfile: getProfileThunkCreator })(ProfileContainer))
+export default compose<ComponentType>(
+    connect(mapStateToProps, { getProfile: getProfileThunkCreator }),
+    withAuthRedirect
+)(ProfileContainer)
