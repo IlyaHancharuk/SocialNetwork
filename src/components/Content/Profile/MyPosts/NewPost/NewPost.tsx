@@ -52,7 +52,7 @@ const NewPostForm: FC<NewPostProps> = (props) => {
         <Formik initialValues={initialValues} onSubmit={onSubmitHandler}  >
             <Form>
                 <Field as="textarea" id="newPostText" name="newPostText" />
-                <button type="submit"  >SEND</button>
+                <button type="submit">ADD</button>
             </Form>
         </Formik>
     )

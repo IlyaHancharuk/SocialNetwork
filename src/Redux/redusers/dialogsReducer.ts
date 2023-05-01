@@ -14,7 +14,6 @@ const initialState: DialogsPageType = {
         { id: 2, message: 'How are you?' },
         { id: 3, message: '"\\(o.o)/"' },
     ],
-    newMessageText: '',
 };
 
 export const dialogsReducer = (state: DialogsPageType = initialState, action: DialogsActionsType): DialogsPageType => {
@@ -22,14 +21,10 @@ export const dialogsReducer = (state: DialogsPageType = initialState, action: Di
         case "SEND-MESSAGE": {
             const newMessage: MessagesDataType = {
                 id: state.messagesData.length + 1,
-                message: state.newMessageText,
+                message: action.pauload.newMessageText,
             }
             const updatedMessagesData = [...state.messagesData, newMessage];
-            return {...state, messagesData: updatedMessagesData, newMessageText: ''};
-        }
-        case "CHANGE-MESSAGE-TEXT": {
-            const newMessageText = action.pauload.text
-            return {...state, newMessageText};
+            return {...state, messagesData: updatedMessagesData};
         }
         default:
             return state;
@@ -37,21 +32,14 @@ export const dialogsReducer = (state: DialogsPageType = initialState, action: Di
 }
 
 
-export type DialogsActionsType = SendMessageACType | ChangeNewMessageTextACType;
+export type DialogsActionsType = SendMessageACType;
 
 export type SendMessageACType = ReturnType<typeof sendMessageAC>;
-export const sendMessageAC = () => {
+export const sendMessageAC = (newMessageText: string) => {
     return {
-        type: 'SEND-MESSAGE'
-    } as const
-};
-
-export type ChangeNewMessageTextACType = ReturnType<typeof changeNewMessageTextAC>;
-export const changeNewMessageTextAC = (text: string) => {
-    return {
-        type: 'CHANGE-MESSAGE-TEXT',
+        type: 'SEND-MESSAGE',
         pauload: {
-            text
+            newMessageText
         }
     } as const
 };

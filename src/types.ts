@@ -38,7 +38,6 @@ export type PostDataType = {
 export type DialogsPageType = {
     dialogsData: DialogsDataType[];
     messagesData: MessagesDataType[];
-    newMessageText: string;
 }
 
 export type DialogsDataType = {

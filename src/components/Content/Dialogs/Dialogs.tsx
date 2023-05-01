@@ -12,7 +12,6 @@ const Dialogs: FC<DialogsPropsType> = (props) => {
             <Messages
                 state={props.dialogsPage}
                 sendMessage={props.sendMessage}
-                changeMessageText={props.changeMessageText}
             />
         </div>
     )

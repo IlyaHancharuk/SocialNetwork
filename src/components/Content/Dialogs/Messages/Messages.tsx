@@ -6,8 +6,7 @@ import NewMessage from "./NewMessage/NewMessage";
 
 type MessagesPropsType = {
     state: DialogsPageType;
-    sendMessage(): void;
-    changeMessageText(text: string): void;
+    sendMessage(newMessageText: string): void;
 }
 
 const Messages: FC<MessagesPropsType> = (props) => {
@@ -21,9 +20,7 @@ const Messages: FC<MessagesPropsType> = (props) => {
                 {messages}
             </div>
             <NewMessage
-                newMessageText={props.state.newMessageText}
                 sendMessage={props.sendMessage}
-                changeMessageText={props.changeMessageText}
              />
         </div>
     )

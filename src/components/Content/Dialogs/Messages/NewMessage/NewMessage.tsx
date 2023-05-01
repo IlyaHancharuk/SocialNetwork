@@ -1,31 +1,38 @@
 import React, { FC } from "react";
-import s from './NewMessage.module.css';
+import { Field, Form, Formik, FormikHelpers } from "formik";
 
 type NewMessageProps = {
+    sendMessage(newMessageText: string): void;
+}
+type NewMessageValues = {
     newMessageText: string;
-    sendMessage(): void;
-    changeMessageText(text: string): void;
 }
 
 const NewMessage: FC<NewMessageProps> = (props) => {
-    const sendMessage = () => {
-        props.sendMessage();
+    return (
+        <NewMessageForm sendMessage={props.sendMessage} />
+    )
+}
+
+const NewMessageForm: FC<NewMessageProps> = (props) => {
+    const initialValues: NewMessageValues = {
+        newMessageText: ''
     }
 
-    const changeMessageText = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
-        const message = e.currentTarget.value;
-        props.changeMessageText(message);
+    const onSubmitHandler = (values: NewMessageValues, actions: FormikHelpers<NewMessageValues>) => {
+        console.log({ values, actions });
+        props.sendMessage(values.newMessageText);
+        actions.resetForm();
+        actions.setSubmitting(false);
     }
 
     return (
-        <div className={s.newMessage}>
-            <textarea
-                onChange={changeMessageText}
-                value={props.newMessageText}
-                placeholder="Enter your message"
-            ></textarea>
-            <button onClick={sendMessage}>SEND</button>
-        </div>
+        <Formik initialValues={initialValues} onSubmit={onSubmitHandler} >
+            <Form>
+                <Field as="textarea" id="newMessageText" name="newMessageText" />
+                <button type="submit">SEND</button>
+            </Form>
+        </Formik>
     )
 }
 
