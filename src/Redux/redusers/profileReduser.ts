@@ -11,7 +11,6 @@ const initialState: ProfilePageType = {
         { id: 3, message: 'Hey, i\'m lern', likesCount: 9 },
         { id: 4, message: 'Hey,', likesCount: 15 },
     ],
-    newPostText: '',
 };
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ProfileActionsType): ProfilePageType => {
@@ -19,15 +18,11 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Pr
         case "ADD-POST": {
             const newPost: PostDataType = {
                 id: state.postsData.length + 1,
-                message: state.newPostText,
+                message: action.payload.newPostText,
                 likesCount: 0,
             }
             const updatedPostData = [...state.postsData, newPost];
-            return {...state, postsData: updatedPostData, newPostText: ''};
-        }
-        case "CHANGE-POST-TEXT": {
-            const newPostText = action.payload.text;
-            return {...state, newPostText};
+            return {...state, postsData: updatedPostData};
         }
         case "SET-USER-PROFILE": {
             return {...state, userProfile: action.payload.profile}
@@ -41,23 +36,17 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Pr
     }
 }
 
-export type ProfileActionsType = AddPostACType | ChangeNewPostTextACType | SetUserProfileACType | SetStatusACType;
+export type ProfileActionsType = AddPostACType | SetUserProfileACType | SetStatusACType;
 export type AddPostACType = ReturnType<typeof addPostAC>;
-export const addPostAC = () => {
+export const addPostAC = (newPostText: string) => {
     return {
         type: 'ADD-POST',
-    } as const
-};
-
-export type ChangeNewPostTextACType = ReturnType<typeof changeNewPostTextAC>;
-export const changeNewPostTextAC = (text: string) => {
-    return {
-        type: 'CHANGE-POST-TEXT',
         payload: {
-            text
+            newPostText
         }
     } as const
 };
+
 
 export type SetUserProfileACType = ReturnType<typeof setUserProfileAC>;
 export const setUserProfileAC = (profile: UserProfileType) => {

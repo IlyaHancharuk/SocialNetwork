@@ -8,10 +8,7 @@ const MyPosts: FC<MyPostsPropsType> = (props) => {
     return (
         <div className={s.myPosts}>
             <h3>My Posts</h3>
-            <NewPost
-                //newPostText={props.profilePage.newPostText}
-                addPost={props.addPost}
-                changePostText={props.changePostText} />
+            <NewPost addPost={props.addPost} />
             <Posts postsData={props.profilePage.postsData} />
         </div>
     )

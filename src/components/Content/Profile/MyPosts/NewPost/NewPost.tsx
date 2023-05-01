@@ -2,36 +2,14 @@ import React, { FC } from "react";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 
 type NewPostProps = {
-    //newPostText: string;
-    addPost(): void;
-    changePostText(text: string): void;
+    addPost(newPostText: string): void;
+}
+type NewPostValues = {
+    newPostText: string;
 }
 
 const NewPost: FC<NewPostProps> = (props) => {
-    // const addPost = () => {
-    //     props.addPost();
-    // }
-    // const changePostText = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
-    //     const postMessage = e.currentTarget.value;
-    //     props.changePostText(postMessage);
-    // }
-
-    return (
-        <NewPostForm addPost={props.addPost} changePostText={props.changePostText} />
-        // <div className={s.newPost}>
-        //     <textarea
-        //         value={props.newPostText}
-        //         onChange={changePostText}
-        //         placeholder="Enter post message"
-        //     ></textarea>
-        //     <button onClick={addPost}>SEND</button>
-        // </div>
-    )
-}
-
-
-type NewPostValues = {
-    newPostText: string;
+    return <NewPostForm addPost={props.addPost} />
 }
 
 const NewPostForm: FC<NewPostProps> = (props) => {
@@ -41,11 +19,9 @@ const NewPostForm: FC<NewPostProps> = (props) => {
 
     const onSubmitHandler = (values: NewPostValues, actions: FormikHelpers<NewPostValues>) => {
         console.log({ values, actions });
-        props.changePostText(values.newPostText);
-        props.addPost();
+        props.addPost(values.newPostText);
         actions.resetForm();
         actions.setSubmitting(false);
-
     }
 
     return (
