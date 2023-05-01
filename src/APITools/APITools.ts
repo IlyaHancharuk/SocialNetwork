@@ -32,18 +32,31 @@ export const userAPI = {
 
     async unfollowUser (userId: number) {
         const res = await instance
-        .delete(`/follow/${userId}`,
+            .delete(`/follow/${userId}`,
         )
         const data = res.data;
         return data;
     },
+}
 
+export const profileAPI = {
     async getUserProfile(userId: number) {
         const res = await instance
             .get(`/profile/${userId}`);
         const profile: UserProfileType = res.data;
         return profile;
     },
+
+    async getUserStatus(userId: number) {
+        const res = await instance
+            .get(`/profile/status/${userId}`);
+        return res.data;
+    },
+
+    async updateUserStatus(status: string) {
+        return await instance
+            .put(`profile/status`, { status });
+    }
 }
 
 export const authAPI = {

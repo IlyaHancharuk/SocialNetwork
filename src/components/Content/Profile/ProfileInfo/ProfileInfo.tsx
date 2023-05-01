@@ -6,10 +6,12 @@ import ProfileStatus from "./ProfileStatus/ProfileIStatus";
 
 
 type ProfileInfoPropsType = {
-    userProfile: UserProfileType | null
+    userProfile: UserProfileType | null;
+    status: string;
+    updateUserStatus(status: string): void;
 }
 
-const ProfileInfo: FC<ProfileInfoPropsType> = ({ userProfile }) => {
+const ProfileInfo: FC<ProfileInfoPropsType> = ({ userProfile, ...props }) => {
     const userPhoto = userProfile?.photos.large ? userProfile.photos.large : defaultUserPhoto;
 
     return (
@@ -20,7 +22,9 @@ const ProfileInfo: FC<ProfileInfoPropsType> = ({ userProfile }) => {
             <div className="userMainInfo">
                 <h2>{userProfile?.fullName}</h2>
                 <h3>{userProfile?.aboutMe}</h3>
-                <ProfileStatus />
+                <ProfileStatus status={props.status}
+                               updateUserStatus={props.updateUserStatus}
+                />
                 <ul>
                     {userProfile?.contacts.mainLink && <li>MainLink: <a href={userProfile?.contacts.mainLink}>{userProfile?.contacts.mainLink}</a></li>}
                     {userProfile?.contacts.facebook && <li>Facebook: <a href={userProfile?.contacts.facebook}>{userProfile?.contacts.facebook}</a></li>}

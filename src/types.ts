@@ -18,6 +18,7 @@ export type SidebarDataType = {
 
 export type ProfilePageType = {
     userProfile: UserProfileType | null;
+    status: string;
     postsData: PostDataType[];
     newPostText: string;
 }
