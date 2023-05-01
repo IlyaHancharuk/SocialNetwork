@@ -11,7 +11,7 @@ import { ReduxStoreType } from './Redux/redux-store';
 import UsersContainer from './components/Content/Users/UsersContainer';
 import ProfileContainer from './components/Content/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
-import LoginPage from './components/Login/Login';
+import LoginPageContainer from './components/Login/LoginPageContainer';
 
 type AppPropsType = {
   store: ReduxStoreType;
@@ -25,7 +25,7 @@ const App: FC<AppPropsType> = (props) => {
         <Sidebar state={props.store.getState().sidebarData} />
         <main className='content-wrapper'>
           <Routes>
-            <Route element={<LoginPage />} path='/login' />
+            <Route element={<LoginPageContainer />} path='/login' />
             <Route element={<ProfileContainer />} path='/profile/:userId' />
             <Route element={<DialogsContainer />} path='/dialogs/*' />
             <Route element={<UsersContainer />} path='/users' />

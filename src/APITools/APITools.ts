@@ -1,5 +1,6 @@
 import axios from "axios";
 import { AuthResponseType, UserProfileType, UserType } from "../types";
+import { LoginValuesType } from "../components/Login/LoginPage";
 
 const baseURL = 'https://social-network.samuraijs.com/api/1.0';
 const API_KEY = 'c44c7483-d218-46e7-8fde-cd68d45f3f47';
@@ -62,12 +63,20 @@ export const profileAPI = {
 export const authAPI = {
     async me() {
         const res = await instance
-            .get(`/auth/me`,
-            );
+            .get(`/auth/me`);
         if (res.data.resultCode === 0) {
             console.log('authentification is done');
             const data: AuthResponseType = res.data.data;
             return data;
         }
     },
+
+    async login(values: LoginValuesType) {
+        const res = await instance
+            .post(`/auth/login`, { ...values });
+        if (res.data.resultCode === 0) {
+            console.log('loginisation is done');
+            return res.data.data.userId;
+        }
+    }
 }

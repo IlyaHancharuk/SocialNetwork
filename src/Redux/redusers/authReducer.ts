@@ -1,6 +1,7 @@
 import { Dispatch } from "redux";
 import { AuthResponseType, AuthType } from "../../types";
 import { authAPI } from "../../APITools/APITools";
+import { LoginValuesType } from "../../components/Login/LoginPage";
 
 const initialState: AuthType = {
     id: null,
@@ -36,6 +37,14 @@ export const getAuthThunkCreator = () => {
     return (dispatch: Dispatch) => {
         authAPI.me().then(data => {
             data && dispatch(setAuthDataAC(data, true));
+        })
+    }
+}
+
+export const loginThunkCreator = (values: LoginValuesType) => {
+    return (dispatch: Dispatch) => {
+        authAPI.login(values).then(userId => {
+            console.log(userId)
         })
     }
 }
