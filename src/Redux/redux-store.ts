@@ -1,10 +1,10 @@
 import { legacy_createStore, combineReducers, applyMiddleware } from "redux";
-import  thunkMiddleware  from "redux-thunk";
-import { dialogsReducer } from "./redusers/dialogsReducer";
-import { profileReducer } from "./redusers/profileReduser";
-import { sidebarReducer } from "./redusers/sidebarReducer";
-import { usersReducer } from "./redusers/usersReducer";
-import { authReducer } from "./redusers/authReducer";
+import  thunkMiddleware, { ThunkAction }  from "redux-thunk";
+import { DialogsActionsType, dialogsReducer } from "./redusers/dialogsReducer";
+import { ProfileActionsType, profileReducer } from "./redusers/profileReduser";
+import { SidebarActionsType, sidebarReducer } from "./redusers/sidebarReducer";
+import { UsersActionsType, usersReducer } from "./redusers/usersReducer";
+import { SetAuthDataACType, authReducer } from "./redusers/authReducer";
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
@@ -18,5 +18,19 @@ const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
 export type AppStateType = ReturnType<typeof rootReducer>;
 export type ReduxStoreType = typeof store;
+export type AllActionsType =
+    ProfileActionsType
+    | DialogsActionsType
+    | SidebarActionsType
+    | UsersActionsType
+    | SetAuthDataACType
+;
+export type AppThunkType<ReturnType = void> = ThunkAction<
+    ReturnType,
+    AppStateType,
+    unknown,
+    AllActionsType
+>
+
 
 export default store;

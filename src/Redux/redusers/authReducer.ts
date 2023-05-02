@@ -1,7 +1,7 @@
-import { Dispatch } from "redux";
 import { AuthResponseType, AuthType } from "../../types";
 import { authAPI } from "../../APITools/APITools";
 import { LoginValuesType } from "../../components/Login/LoginPage";
+import { AppThunkType } from "../redux-store";
 
 const initialState: AuthType = {
     id: null,
@@ -33,8 +33,8 @@ export const setAuthDataAC = (data: AuthResponseType, isAuth: boolean) => {
     } as const
 };
 
-export const getAuthThunkCreator = () => {
-    return (dispatch: Dispatch) => {
+export const getAuthThunkCreator = (): AppThunkType => {
+    return (dispatch) => {
         authAPI.me().then(res => {
             if (res.data.resultCode === 0) {
                 console.log('authentification is done');
@@ -45,8 +45,8 @@ export const getAuthThunkCreator = () => {
     }
 }
 
-export const loginThunkCreator = (values: LoginValuesType) => {
-    return (dispatch: Dispatch) => {
+export const loginThunkCreator = (values: LoginValuesType): AppThunkType => {
+    return (dispatch) => {
         authAPI.login(values).then(res => {
             if (res.data.resultCode === 0) {
                 console.log('login is done');

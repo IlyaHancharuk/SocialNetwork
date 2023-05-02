@@ -1,6 +1,6 @@
-import { Dispatch } from "redux";
 import { PostDataType, ProfilePageType, UserProfileType } from "../../types";
 import { profileAPI } from "../../APITools/APITools";
+import { AppThunkType } from "../redux-store";
 
 const initialState: ProfilePageType = {
     userProfile: null,
@@ -68,8 +68,8 @@ export const setStatusAC = (status: string) => {
     } as const
 };
 
-export const getUserProfileThunkCreator = (userId: number) => {
-    return (dispatch: Dispatch) => {
+export const getUserProfileThunkCreator = (userId: number): AppThunkType => {
+    return (dispatch) => {
         profileAPI.getUserProfile(userId).then(res => {
             const profile: UserProfileType = res.data;
             dispatch(setUserProfileAC(profile));
@@ -77,8 +77,8 @@ export const getUserProfileThunkCreator = (userId: number) => {
     }
 }
 
-export const getUserStatusThunkCreator = (userId: number) => {
-    return (dispatch: Dispatch) => {
+export const getUserStatusThunkCreator = (userId: number): AppThunkType => {
+    return (dispatch) => {
         profileAPI.getUserStatus(userId).then(res => {
             const status: string = res.data;
             dispatch(setStatusAC(status));
@@ -86,8 +86,8 @@ export const getUserStatusThunkCreator = (userId: number) => {
     }
 }
 
-export const updateUserStatusThunkCreator = (status: string) => {
-    return (dispatch: Dispatch) => {
+export const updateUserStatusThunkCreator = (status: string): AppThunkType => {
+    return (dispatch) => {
         profileAPI.updateUserStatus(status).then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(setStatusAC(status));

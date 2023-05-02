@@ -1,6 +1,6 @@
-import { Dispatch } from "redux";
 import { UserType, UsersPageType } from "../../types";
 import { userAPI } from "../../APITools/APITools";
+import { AppThunkType } from "../redux-store";
 
 const initialState: UsersPageType = {
     users: [],
@@ -100,8 +100,8 @@ export const setFetchingAC = (isFetching: boolean) => {
     } as const
 }
 
-export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
-    return (dispatch: Dispatch) => {
+export const getUsersThunkCreator = (currentPage: number, pageSize: number): AppThunkType => {
+    return (dispatch) => {
         dispatch(setFetchingAC(true));
             userAPI.getUsers(currentPage, pageSize)
                 .then((res) => {
@@ -113,8 +113,11 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
     }
 }
 
-export const followUserThunkCreator = (userId: number, setLocalState: React.Dispatch<React.SetStateAction<boolean>>) => {
-    return (dispatch: Dispatch) => {
+export const followUserThunkCreator = (
+    userId: number,
+    setLocalState: React.Dispatch<React.SetStateAction<boolean>>
+): AppThunkType => {
+    return (dispatch) => {
         setLocalState(true);
         userAPI.followUser(userId)
             .then(res => {
@@ -126,8 +129,11 @@ export const followUserThunkCreator = (userId: number, setLocalState: React.Disp
     }
 }
 
-export const unfollowUserThunkCreator = (userId: number, setLocalState: React.Dispatch<React.SetStateAction<boolean>>) => {
-    return (dispatch: Dispatch) => {
+export const unfollowUserThunkCreator = (
+    userId: number,
+    setLocalState: React.Dispatch<React.SetStateAction<boolean>>
+): AppThunkType => {
+    return (dispatch) => {
         setLocalState(true);
         userAPI.unfollowUser(userId)
             .then(res => {

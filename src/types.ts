@@ -1,17 +1,3 @@
-import { SetAuthDataACType } from "./Redux/redusers/authReducer";
-import { DialogsActionsType } from "./Redux/redusers/dialogsReducer";
-import { ProfileActionsType } from "./Redux/redusers/profileReduser";
-import { SidebarActionsType } from "./Redux/redusers/sidebarReducer";
-import { UsersActionsType } from "./Redux/redusers/usersReducer";
-
-export type AllActionsType =
-    ProfileActionsType
-    | DialogsActionsType
-    | SidebarActionsType
-    | UsersActionsType
-    | SetAuthDataACType
-;
-
 export type SidebarDataType = {
     friendsData: FriendsDataType[];
 }
