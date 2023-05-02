@@ -4,7 +4,7 @@ import { DialogsActionsType, dialogsReducer } from "./redusers/dialogsReducer";
 import { ProfileActionsType, profileReducer } from "./redusers/profileReduser";
 import { SidebarActionsType, sidebarReducer } from "./redusers/sidebarReducer";
 import { UsersActionsType, usersReducer } from "./redusers/usersReducer";
-import { SetAuthDataACType, authReducer } from "./redusers/authReducer";
+import { AuthActionsType, authReducer } from "./redusers/authReducer";
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
@@ -23,7 +23,7 @@ export type AllActionsType =
     | DialogsActionsType
     | SidebarActionsType
     | UsersActionsType
-    | SetAuthDataACType
+    | AuthActionsType
 ;
 export type AppThunkType<ReturnType = void> = ThunkAction<
     ReturnType,

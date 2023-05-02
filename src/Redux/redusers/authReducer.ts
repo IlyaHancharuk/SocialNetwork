@@ -7,14 +7,18 @@ const initialState: AuthType = {
     id: null,
     email: '',
     login: '',
-    isAuth: false
+    isAuth: false,
+    errorMessage: ''
 };
 
-export const authReducer = (state: AuthType = initialState, action: SetAuthDataACType): AuthType => {
+export const authReducer = (state: AuthType = initialState, action: AuthActionsType): AuthType => {
     switch (action.type) {
         case "SET-AUTH-DATA": {
             console.log(action.payload)
             return {...state, ...action.payload.data, isAuth: action.payload.isAuth};
+        }
+        case "SET-AUTH-ERROR": {
+            return {...state, errorMessage: action.payload.errorMessage}
         }
         default: {
             return state;
@@ -22,14 +26,25 @@ export const authReducer = (state: AuthType = initialState, action: SetAuthDataA
     }
 }
 
-export type AuthActionsType = SetAuthDataACType;
+export type AuthActionsType = SetAuthDataACType | SetAuthErrorMessageACType;
 export type SetAuthDataACType = ReturnType<typeof setAuthDataAC>;
+export type SetAuthErrorMessageACType = ReturnType<typeof setAuthErrorMessageAC>;
+
 export const setAuthDataAC = (data: AuthResponseType, isAuth: boolean) => {
     return {
         type: 'SET-AUTH-DATA',
         payload: {
             data,
-            isAuth
+            isAuth,
+        }
+    } as const
+};
+
+export const setAuthErrorMessageAC = (errorMessage: string) => {
+    return {
+        type: 'SET-AUTH-ERROR',
+        payload: {
+            errorMessage
         }
     } as const
 };
@@ -48,6 +63,10 @@ export const loginThunkCreator = (values: LoginValuesType): AppThunkType => asyn
     if (res.data.resultCode === 0) {
         console.log('login is done');
         dispatch(getAuthThunkCreator());
+        dispatch(setAuthErrorMessageAC(''));
+    } else {
+        const errorMessage: string = res.data.messages[0];
+        dispatch(setAuthErrorMessageAC(errorMessage));
     }
 }
 

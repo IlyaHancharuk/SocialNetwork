@@ -83,4 +83,4 @@ export type AuthResponseType = {
     login: string;
 }
 
-export type AuthType = AuthResponseType & {isAuth: boolean};
+export type AuthType = AuthResponseType & {isAuth: boolean, errorMessage: string} ;
