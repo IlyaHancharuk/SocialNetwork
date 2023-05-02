@@ -13,6 +13,7 @@ const initialState: AuthType = {
 export const authReducer = (state: AuthType = initialState, action: SetAuthDataACType): AuthType => {
     switch (action.type) {
         case "SET-AUTH-DATA": {
+            console.log(action.payload)
             return {...state, ...action.payload.data, isAuth: action.payload.isAuth};
         }
         default: {
@@ -33,25 +34,19 @@ export const setAuthDataAC = (data: AuthResponseType, isAuth: boolean) => {
     } as const
 };
 
-export const getAuthThunkCreator = (): AppThunkType => {
-    return (dispatch) => {
-        authAPI.me().then(res => {
-            if (res.data.resultCode === 0) {
-                console.log('authentification is done');
-                const data: AuthResponseType = res.data.data;
-                dispatch(setAuthDataAC(data, true));
-            }
-        })
+export const getAuthThunkCreator = (): AppThunkType => async (dispatch) => {
+    const res = await authAPI.me();
+    if (res.data.resultCode === 0) {
+        console.log('authentification is done');
+        const data: AuthResponseType = res.data.data;
+        dispatch(setAuthDataAC(data, true));
     }
 }
 
-export const loginThunkCreator = (values: LoginValuesType): AppThunkType => {
-    return (dispatch) => {
-        authAPI.login(values).then(res => {
-            if (res.data.resultCode === 0) {
-                console.log('login is done');
-                //dispatch(getAuthThunkCreator())
-            }
-        })
+export const loginThunkCreator = (values: LoginValuesType): AppThunkType => async dispatch => {
+    const res = await authAPI.login(values)
+    if (res.data.resultCode === 0) {
+        console.log('login is done');
+        dispatch(getAuthThunkCreator())
     }
 }

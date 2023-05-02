@@ -100,47 +100,39 @@ export const setFetchingAC = (isFetching: boolean) => {
     } as const
 }
 
-export const getUsersThunkCreator = (currentPage: number, pageSize: number): AppThunkType => {
-    return (dispatch) => {
-        dispatch(setFetchingAC(true));
-            userAPI.getUsers(currentPage, pageSize)
-                .then((res) => {
-                    const users: UserType[] = res.data.items;
-                    const totalCount: number = Number(res.data.totalCount);
-                    dispatch(setFetchingAC(false));
-                    dispatch(setUsersAC(users, totalCount));
-                });
-    }
+export const getUsersThunkCreator = (
+    currentPage: number,
+    pageSize: number
+): AppThunkType => async dispatch => {
+    dispatch(setFetchingAC(true));
+    const res = await userAPI.getUsers(currentPage, pageSize)
+    const users: UserType[] = res.data.items;
+    const totalCount: number = Number(res.data.totalCount);
+    dispatch(setFetchingAC(false));
+    dispatch(setUsersAC(users, totalCount));
 }
 
 export const followUserThunkCreator = (
     userId: number,
     setLocalState: React.Dispatch<React.SetStateAction<boolean>>
-): AppThunkType => {
-    return (dispatch) => {
-        setLocalState(true);
-        userAPI.followUser(userId)
-            .then(res => {
-                if (res.data.resultCode === 0) {
-                    dispatch(followSuccessAC(userId));
-                }
-                setLocalState(false);
-            })
+): AppThunkType => async dispatch => {
+    setLocalState(true);
+    const res = await userAPI.followUser(userId)
+    if (res.data.resultCode === 0) {
+        dispatch(followSuccessAC(userId));
     }
+    setLocalState(false);
+
 }
 
 export const unfollowUserThunkCreator = (
     userId: number,
     setLocalState: React.Dispatch<React.SetStateAction<boolean>>
-): AppThunkType => {
-    return (dispatch) => {
-        setLocalState(true);
-        userAPI.unfollowUser(userId)
-            .then(res => {
-                if (res.data.resultCode === 0) {
-                    dispatch(unfollowSuccessAC(userId));
-                }
-                setLocalState(false);
-            })
+): AppThunkType => async dispatch => {
+    setLocalState(true);
+    const res = await userAPI.unfollowUser(userId)
+    if (res.data.resultCode === 0) {
+        dispatch(unfollowSuccessAC(userId));
     }
+    setLocalState(false);
 }

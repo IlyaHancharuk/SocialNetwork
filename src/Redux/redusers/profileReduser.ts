@@ -68,30 +68,21 @@ export const setStatusAC = (status: string) => {
     } as const
 };
 
-export const getUserProfileThunkCreator = (userId: number): AppThunkType => {
-    return (dispatch) => {
-        profileAPI.getUserProfile(userId).then(res => {
-            const profile: UserProfileType = res.data;
-            dispatch(setUserProfileAC(profile));
-        });
-    }
+export const getUserProfileThunkCreator = (userId: number): AppThunkType => async dispatch => {
+    const res = await profileAPI.getUserProfile(userId)
+    const profile: UserProfileType = res.data;
+    dispatch(setUserProfileAC(profile));
 }
 
-export const getUserStatusThunkCreator = (userId: number): AppThunkType => {
-    return (dispatch) => {
-        profileAPI.getUserStatus(userId).then(res => {
-            const status: string = res.data;
-            dispatch(setStatusAC(status));
-        });
-    }
+export const getUserStatusThunkCreator = (userId: number): AppThunkType => async dispatch => {
+    const res = await profileAPI.getUserStatus(userId)
+    const status: string = res.data;
+    dispatch(setStatusAC(status));
 }
 
-export const updateUserStatusThunkCreator = (status: string): AppThunkType => {
-    return (dispatch) => {
-        profileAPI.updateUserStatus(status).then(res => {
-            if (res.data.resultCode === 0) {
-                dispatch(setStatusAC(status));
-            }
-        });
+export const updateUserStatusThunkCreator = (status: string): AppThunkType => async dispatch => {
+    const res = await profileAPI.updateUserStatus(status)
+    if (res.data.resultCode === 0) {
+        dispatch(setStatusAC(status));
     }
 }
