@@ -59,7 +59,7 @@ const LoginForm: FC<LoginPagePropsType> = (props) => {
                     <Field
                         id="password"
                         name="password"
-                        type="text"
+                        type="password"
                     />
                     {errors.password && touched.password
                         ? (<div className={s.error}>{errors.password}</div>)

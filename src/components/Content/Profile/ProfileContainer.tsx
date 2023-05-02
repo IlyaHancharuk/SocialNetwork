@@ -2,7 +2,7 @@ import React, { ComponentType, FC, useEffect } from "react";
 import Profile from "./Profile";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
-import { UserProfileType } from "../../../types";
+import { AuthType, UserProfileType } from "../../../types";
 import { AppStateType } from "../../../Redux/redux-store";
 import { getUserProfileThunkCreator, getUserStatusThunkCreator, updateUserStatusThunkCreator } from "../../../Redux/redusers/profileReduser";
 import { withAuthRedirect } from "../../../HOC/withAuthRedirect";
@@ -11,6 +11,7 @@ import { compose } from "redux";
 type MapStatePropsType = {
     userProfile: UserProfileType | null;
     userStatus: string;
+    auth: AuthType;
 }
 type MapDispatchPropsType = {
     getUserProfile(userId: number): void
@@ -22,14 +23,15 @@ export type ProfilePropsType = MapStatePropsType & MapDispatchPropsType;
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         userProfile: state.profilePage.userProfile,
-        userStatus: state.profilePage.status
+        userStatus: state.profilePage.status,
+        auth: state.auth
     }
 }
 
 const ProfileContainer: FC<ProfilePropsType> = (props) => {
     const { userId } = useParams();
-    const id = userId ? +userId : 2;
-    console.log('UserProfile loaded')
+    const id = userId && userId !== '*' ? +userId : props.auth.id ? props.auth.id: 2;
+    console.log('UserProfile loaded ')
 
     useEffect(() => {
        props.getUserProfile(id);
@@ -40,6 +42,7 @@ const ProfileContainer: FC<ProfilePropsType> = (props) => {
     return (
         <Profile userProfile={props.userProfile}
                  userStatus={props.userStatus}
+                 auth={props.auth}
                  getUserProfile={props.getUserProfile}
                  getUserStatus={props.getUserStatus}
                  updateUserStatus={props.updateUserStatus} />

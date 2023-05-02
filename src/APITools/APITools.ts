@@ -51,6 +51,6 @@ export const authAPI = {
     },
 
     async logout() {
-        return await instance.post(`/auth/login`);
+        return await instance.delete(`/auth/login`);
     }
 }

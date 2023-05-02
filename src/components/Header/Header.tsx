@@ -5,14 +5,16 @@ import { NavLink } from "react-router-dom";
 import { AuthResponseType } from "../../types";
 
 type HeaderPropsType = {
-    authData: AuthResponseType
+    authData: AuthResponseType;
+    logout(): void;
 }
 
 const Header: FC<HeaderPropsType> = (props) => {
     const authBlock: JSX.Element =
         props.authData.id
-            ? <div>
+            ? <div className={s.loginContainer}>
                 <h3> Hello, {props.authData.login}!</h3>
+                <SuperButton onClick={props.logout}>Logout</SuperButton>
             </div>
             : <NavLink to={"/login"}>
                 <SuperButton>

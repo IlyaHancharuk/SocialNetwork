@@ -11,3 +11,17 @@
     width: 50px;
     height: 50px;
 }
+
+.loginContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.auth h3 {
+    margin: 0;
+}
+
+.auth button {
+    margin: 0;
+}

@@ -47,6 +47,21 @@ export const loginThunkCreator = (values: LoginValuesType): AppThunkType => asyn
     const res = await authAPI.login(values)
     if (res.data.resultCode === 0) {
         console.log('login is done');
-        dispatch(getAuthThunkCreator())
+        dispatch(getAuthThunkCreator());
+    }
+}
+
+export const logoutThunkCreator = (): AppThunkType => async dispatch => {
+    const res = await authAPI.logout()
+    if (res.data.resultCode === 0) {
+        console.log('logout is done');
+        dispatch(setAuthDataAC(
+            {
+                id: null,
+                email: '',
+                login: '',
+            },
+            false
+        ));
     }
 }

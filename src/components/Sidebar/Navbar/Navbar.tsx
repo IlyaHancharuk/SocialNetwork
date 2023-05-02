@@ -11,7 +11,7 @@ const Navbar = () => {
         <nav className={s.navbar}>
             <ul className={s.menu}>
                 <li className={s.item}>
-                    <NavLink to="/profile" className={ navLinkClassName } >Profile</NavLink>
+                    <NavLink to="/profile/*" className={ navLinkClassName } >Profile</NavLink>
                 </li>
                 <li className={s.item}>
                     <NavLink to="/dialogs" className={ navLinkClassName } >Messages</NavLink>
