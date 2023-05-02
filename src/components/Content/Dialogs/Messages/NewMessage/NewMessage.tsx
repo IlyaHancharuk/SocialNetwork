@@ -1,5 +1,8 @@
 import React, { FC } from "react";
 import { Field, Form, Formik, FormikHelpers } from "formik";
+import s from "./NewMessage.module.css";
+import * as Yup from "yup";
+
 
 type NewMessageProps = {
     sendMessage(newMessageText: string): void;
@@ -14,6 +17,11 @@ const NewMessage: FC<NewMessageProps> = (props) => {
     )
 }
 
+const NewMessageSchema = Yup.object().shape({
+    newMessageText: Yup.string()
+        .required('')
+})
+
 const NewMessageForm: FC<NewMessageProps> = (props) => {
     const initialValues: NewMessageValues = {
         newMessageText: ''
@@ -27,11 +35,24 @@ const NewMessageForm: FC<NewMessageProps> = (props) => {
     }
 
     return (
-        <Formik initialValues={initialValues} onSubmit={onSubmitHandler} >
-            <Form>
-                <Field as="textarea" id="newMessageText" name="newMessageText" />
-                <button type="submit">SEND</button>
-            </Form>
+        <Formik
+            initialValues={initialValues}
+            onSubmit={onSubmitHandler}
+            validationSchema={NewMessageSchema}
+        >
+            {({ errors, touched }) => {
+                return (
+                    <Form className={s.form} >
+                        <Field as="textarea" id="newMessageText" name="newMessageText" className={s.field} />
+
+                        { errors.newMessageText && touched.newMessageText
+                            ? <div className={`${s.errorMessage}`}>{errors.newMessageText}</div>
+                            : null }
+
+                        <button className={s.submitBtn} type="submit">ADD</button>
+                    </Form>
+                )
+            }}
         </Formik>
     )
 }

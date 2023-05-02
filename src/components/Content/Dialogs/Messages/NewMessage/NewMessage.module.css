@@ -1,3 +1,19 @@
-.newMessage {
-    
+.form {
+    display: grid;
+    max-width: 400px;
+    grid-template-columns: 300px 100px;
+    grid-template-rows: 80px 70px;
+}
+
+.field {
+    grid-area: 1/1/2/3;
+}
+
+.errorMessage {
+    color: red;
+    grid-area: 2/1/3/2;
+}
+
+.submitBtn {
+    grid-area: 2/2/3/3;
 }
