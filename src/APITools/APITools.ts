@@ -1,5 +1,4 @@
 import axios from "axios";
-import { AuthResponseType, UserProfileType, UserType } from "../types";
 import { LoginValuesType } from "../components/Login/LoginPage";
 
 const baseURL = 'https://social-network.samuraijs.com/api/1.0';
@@ -15,68 +14,43 @@ const instance = axios.create({
 
 export const userAPI = {
     async getUsers (currentPage = 1, pageSize = 10) {
-        const res = await instance
-            .get(`/users?page=${currentPage}&count=${pageSize}`,
-            )
-        const users: UserType[] = res.data.items;
-        const totalCount: number = Number(res.data.totalCount);
-        return { users, totalCount };
+        return await instance.get(`/users?page=${currentPage}&count=${pageSize}`);
     },
 
     async followUser (userId: number) {
-        const res = await instance
-            .post(`/follow/${userId}`,
-        )
-        const data = res.data;
-        return data;
+        return await instance.post(`/follow/${userId}`);
     },
 
     async unfollowUser (userId: number) {
-        const res = await instance
-            .delete(`/follow/${userId}`,
-        )
-        const data = res.data;
-        return data;
+        return await instance.delete(`/follow/${userId}`);
     },
 }
 
 export const profileAPI = {
     async getUserProfile(userId: number) {
-        const res = await instance
-            .get(`/profile/${userId}`);
-        const profile: UserProfileType = res.data;
-        return profile;
+        return await instance.get(`/profile/${userId}`);
     },
 
     async getUserStatus(userId: number) {
-        const res = await instance
-            .get(`/profile/status/${userId}`);
-        return res.data;
+        return await instance.get(`/profile/status/${userId}`);
     },
 
     async updateUserStatus(status: string) {
-        return await instance
-            .put(`profile/status`, { status });
+        return await instance.put(`profile/status`, { status });
     }
 }
 
 export const authAPI = {
+
     async me() {
-        const res = await instance
-            .get(`/auth/me`);
-        if (res.data.resultCode === 0) {
-            console.log('authentification is done');
-            const data: AuthResponseType = res.data.data;
-            return data;
-        }
+        return await instance.get(`/auth/me`);
     },
 
     async login(values: LoginValuesType) {
-        const res = await instance
-            .post(`/auth/login`, { ...values });
-        if (res.data.resultCode === 0) {
-            console.log('loginisation is done');
-            return res.data.data.userId;
-        }
+        return await instance.post(`/auth/login`, { ...values });
+    },
+
+    async logout() {
+        return await instance.post(`/auth/login`);
     }
 }

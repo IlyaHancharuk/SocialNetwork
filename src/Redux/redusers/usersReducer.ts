@@ -104,7 +104,9 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
     return (dispatch: Dispatch) => {
         dispatch(setFetchingAC(true));
             userAPI.getUsers(currentPage, pageSize)
-                .then(({ users, totalCount }) => {
+                .then((res) => {
+                    const users: UserType[] = res.data.items;
+                    const totalCount: number = Number(res.data.totalCount);
                     dispatch(setFetchingAC(false));
                     dispatch(setUsersAC(users, totalCount));
                 });
@@ -115,12 +117,9 @@ export const followUserThunkCreator = (userId: number, setLocalState: React.Disp
     return (dispatch: Dispatch) => {
         setLocalState(true);
         userAPI.followUser(userId)
-            .then(data => {
-                if (data.resultCode === 0) {
+            .then(res => {
+                if (res.data.resultCode === 0) {
                     dispatch(followSuccessAC(userId));
-                } else {
-                    //setFollowMessage(data.messages[0]);
-                    //hideFollowMessage();
                 }
                 setLocalState(false);
             })
@@ -131,12 +130,9 @@ export const unfollowUserThunkCreator = (userId: number, setLocalState: React.Di
     return (dispatch: Dispatch) => {
         setLocalState(true);
         userAPI.unfollowUser(userId)
-            .then(data => {
-                if (data.resultCode === 0) {
+            .then(res => {
+                if (res.data.resultCode === 0) {
                     dispatch(unfollowSuccessAC(userId));
-                } else {
-                    //setFollowMessage(data.messages[0]);
-                    //hideFollowMessage();
                 }
                 setLocalState(false);
             })

@@ -35,16 +35,23 @@ export const setAuthDataAC = (data: AuthResponseType, isAuth: boolean) => {
 
 export const getAuthThunkCreator = () => {
     return (dispatch: Dispatch) => {
-        authAPI.me().then(data => {
-            data && dispatch(setAuthDataAC(data, true));
+        authAPI.me().then(res => {
+            if (res.data.resultCode === 0) {
+                console.log('authentification is done');
+                const data: AuthResponseType = res.data.data;
+                dispatch(setAuthDataAC(data, true));
+            }
         })
     }
 }
 
 export const loginThunkCreator = (values: LoginValuesType) => {
     return (dispatch: Dispatch) => {
-        authAPI.login(values).then(userId => {
-            console.log(userId)
+        authAPI.login(values).then(res => {
+            if (res.data.resultCode === 0) {
+                console.log('login is done');
+                //dispatch(getAuthThunkCreator())
+            }
         })
     }
 }
